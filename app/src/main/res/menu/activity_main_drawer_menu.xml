@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	tools:showIn="navigation_view">
+
+	<group android:checkableBehavior="single">
+		<item
+			android:id="@+id/weather_today"
+			android:icon="@drawable/ic_today_black_24px"
+			android:title="@string/today_text" />
+		<item
+			android:id="@+id/weather_week"
+			android:icon="@drawable/ic_next_week_black_24px"
+			android:title="@string/for_week_text" />
+	</group>
+
+	<item android:title="@string/communicate_text">
+		<menu>
+			<item
+				android:id="@+id/contacts"
+				android:icon="@drawable/ic_contact_phone_black_24px"
+				android:title="@string/contacts_text" />
+			<item
+				android:id="@+id/help"
+				android:icon="@drawable/ic_help_black_24px"
+				android:title="@string/help_text" />
+		</menu>
+	</item>
+
+</menu>

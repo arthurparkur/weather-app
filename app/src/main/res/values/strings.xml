@@ -1,0 +1,13 @@
+<resources>
+	<string name="app_name">WeatherApp</string>
+
+	<string name="navigation_drawer_open">Open navigation drawer</string>
+	<string name="navigation_drawer_close">Close navigation drawer</string>
+
+	<string name="action_settings">Settings</string>
+	<string name="today_text">Today</string>
+	<string name="for_week_text">For week</string>
+	<string name="communicate_text">Communicate</string>
+	<string name="contacts_text">Contacts</string>
+	<string name="help_text">Help</string>
+</resources>
