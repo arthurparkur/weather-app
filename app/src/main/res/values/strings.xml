@@ -10,4 +10,7 @@
 	<string name="communicate_text">Communicate</string>
 	<string name="contacts_text">Contacts</string>
 	<string name="help_text">Help</string>
+	<string name="choose_city_btn">choose city</string>
+	<string name="change_city_dialog">Enter city name</string>
+	<string name="place_not_found">Place not found</string>
 </resources>

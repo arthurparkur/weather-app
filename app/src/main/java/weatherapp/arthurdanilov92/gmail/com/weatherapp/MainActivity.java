@@ -1,19 +1,32 @@
 package weatherapp.arthurdanilov92.gmail.com.weatherapp;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.InputType;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.Toast;
+
+import com.google.gson.Gson;
+
+import org.json.JSONObject;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+  private final Handler handler = new Handler();
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -44,24 +57,71 @@ public class MainActivity extends AppCompatActivity
 
   @Override
   public boolean onCreateOptionsMenu(Menu menu) {
-    // Inflate the menu; this adds items to the action bar if it is present.
     getMenuInflater().inflate(R.menu.main, menu);
     return true;
   }
 
   @Override
   public boolean onOptionsItemSelected(MenuItem item) {
-    // Handle action bar item clicks here. The action bar will
-    // automatically handle clicks on the Home/Up button, so long
-    // as you specify a parent activity in AndroidManifest.xml.
     int id = item.getItemId();
 
-    //noinspection SimplifiableIfStatement
-    if (id == R.id.action_settings) {
+    if (id == R.id.choose_city_btn) {
+      showInputDialog();
       return true;
     }
+    return false;
+  }
 
-    return super.onOptionsItemSelected(item);
+  private void showInputDialog() {
+    AlertDialog.Builder builder = new AlertDialog.Builder(this);
+    builder.setTitle(getString(R.string.change_city_dialog));
+    final EditText input = new EditText(this);
+    input.setInputType(InputType.TYPE_CLASS_TEXT);
+    builder.setView(input);
+    builder.setPositiveButton("Seatch", new DialogInterface.OnClickListener() {
+      @Override
+      public void onClick(DialogInterface dialog, int which) {
+        changeCity(input.getText().toString());
+      }
+    });
+    builder.show();
+  }
+
+  public void changeCity(String city) {
+    updateWeatherData(city);
+  }
+
+  private void updateWeatherData(final String city) {
+    new Thread() {
+      public void run() {
+        final JSONObject json = WeatherDataLoader.getJSONData(getApplicationContext(), city);
+        // Вызов методов напрямую может вызвать runtime error
+        // Мы не можем напрямую обновить UI, поэтому используем handler, чтобы обновить интерфейс в главном потоке.
+        if (json == null) {
+          handler.post(new Runnable() {
+            public void run() {
+              Toast.makeText(getApplicationContext(), getString(R.string.place_not_found),
+                             Toast.LENGTH_LONG).show();
+            }
+          });
+        } else {
+          handler.post(new Runnable() {
+            public void run() {
+              renderWeather(json);
+            }
+          });
+        }
+      }
+    }.start();
+  }
+
+  private void renderWeather(JSONObject json) {
+    Log.d("RenderWeatherMethodRun", "json " + json.toString());
+    try {
+      WeatherMap map = new Gson().fromJson(json.toString(), WeatherMap.class);
+    } catch (Exception e) {
+      Log.d("Catch RenderWeather", e.getMessage());
+    }
   }
 
   @SuppressWarnings("StatementWithEmptyBody")
