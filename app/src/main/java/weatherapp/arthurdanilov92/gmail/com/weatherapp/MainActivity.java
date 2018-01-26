@@ -1,6 +1,8 @@
 package weatherapp.arthurdanilov92.gmail.com.weatherapp;
 
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.NavigationView;
@@ -11,43 +13,46 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
 
 import org.json.JSONObject;
 
-public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity {
 
-  private final Handler handler = new Handler();
+  private final Handler handler   = new Handler();
+  private final String  PREF_FILE = "WeatherPref";
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.drawer_activity_main);
-    Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+    Toolbar toolbar = findViewById(R.id.toolbar);
     setSupportActionBar(toolbar);
 
-    DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+    DrawerLayout drawer = findViewById(R.id.drawer_layout);
     ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
             this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
     drawer.addDrawerListener(toggle);
     toggle.syncState();
 
-    NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-    navigationView.setNavigationItemSelectedListener(this);
+    NavigationView navigationView = findViewById(R.id.nav_view);
+    navigationView.setNavigationItemSelectedListener(new NavDrawerListener(this));
+
+    String cityName = loadCityNameFromSharedPreferences();
+    if (!TextUtils.isEmpty(cityName)) changeCity(cityName);
   }
 
   @Override
   public void onBackPressed() {
-    DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+    DrawerLayout drawer = findViewById(R.id.drawer_layout);
     if (drawer.isDrawerOpen(GravityCompat.START)) {
       drawer.closeDrawer(GravityCompat.START);
     } else {
@@ -74,14 +79,18 @@ public class MainActivity extends AppCompatActivity
 
   private void showInputDialog() {
     AlertDialog.Builder builder = new AlertDialog.Builder(this);
-    builder.setTitle(getString(R.string.change_city_dialog));
+    builder.setTitle(getString(R.string.enter_city_name_dialog));
     final EditText input = new EditText(this);
     input.setInputType(InputType.TYPE_CLASS_TEXT);
     builder.setView(input);
-    builder.setPositiveButton("Seatch", new DialogInterface.OnClickListener() {
+    builder.setPositiveButton("Search", new DialogInterface.OnClickListener() {
       @Override
       public void onClick(DialogInterface dialog, int which) {
-        changeCity(input.getText().toString());
+        String cityName = input.getText().toString();
+        if (!TextUtils.isEmpty(cityName)) changeCity(cityName);
+        else Toast.makeText(getApplicationContext(),
+                            getString(R.string.empty_city_name),
+                            Toast.LENGTH_LONG).show();
       }
     });
     builder.show();
@@ -95,8 +104,6 @@ public class MainActivity extends AppCompatActivity
     new Thread() {
       public void run() {
         final JSONObject json = WeatherDataLoader.getJSONData(getApplicationContext(), city);
-        // Вызов методов напрямую может вызвать runtime error
-        // Мы не можем напрямую обновить UI, поэтому используем handler, чтобы обновить интерфейс в главном потоке.
         if (json == null) {
           handler.post(new Runnable() {
             public void run() {
@@ -108,6 +115,7 @@ public class MainActivity extends AppCompatActivity
           handler.post(new Runnable() {
             public void run() {
               renderWeather(json);
+              saveCityNameToSharedPreferences(city);
             }
           });
         }
@@ -118,36 +126,27 @@ public class MainActivity extends AppCompatActivity
   private void renderWeather(JSONObject json) {
     Log.d("RenderWeatherMethodRun", "json " + json.toString());
     try {
-      WeatherMap map = new Gson().fromJson(json.toString(), WeatherMap.class);
+      WeatherMap map         = new Gson().fromJson(json.toString(), WeatherMap.class);
+      String     temperature = map.getDescription();
+
+      TextView temperatureView = findViewById(R.id.today_temperature);
+      temperatureView.setText(temperature);
     } catch (Exception e) {
       Log.d("Catch RenderWeather", e.getMessage());
     }
   }
 
-  @SuppressWarnings("StatementWithEmptyBody")
-  @Override
-  public boolean onNavigationItemSelected(MenuItem item) {
-    int id = item.getItemId();
+  private void saveCityNameToSharedPreferences(String city) {
+    SharedPreferences sp = getSharedPreferences(PREF_FILE, Context.MODE_PRIVATE);
 
-    int targetId = R.layout.content_main;
+    SharedPreferences.Editor spEditor = sp.edit();
+    spEditor.putString(getString(R.string.sp_city_key), city);
+    spEditor.apply();
+  }
 
-    if (id == R.id.weather_today) {
-      targetId = R.layout.weather_today;
-    } else if (id == R.id.weather_week) {
-      targetId = R.layout.weather_week;
-    } else if (id == R.id.contacts) {
-      targetId = R.layout.contacts;
-    } else if (id == R.id.help) {
-      targetId = R.layout.help;
-    }
+  private String loadCityNameFromSharedPreferences() {
+    SharedPreferences sp = getSharedPreferences(PREF_FILE, Context.MODE_PRIVATE);
+    return sp.getString(getString(R.string.sp_city_key), "");
 
-    ViewGroup parent = (ViewGroup) findViewById(R.id.content_main);
-    parent.removeAllViews();
-    View targetContent = getLayoutInflater().inflate(targetId, parent, false);
-    parent.addView(targetContent);
-
-    DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-    drawer.closeDrawer(GravityCompat.START);
-    return true;
   }
 }
