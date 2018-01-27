@@ -7,7 +7,49 @@ import java.util.List;
 
 public class WeatherMap {
 
-  @SerializedName("cod")
+  @SerializedName("name")
+  String name;
+  //@SerializedName("mainInfo")
+  MainInfo main;
+  //@SerializedName("weatherInfo")
+  List<WeatherInfo> weather = new ArrayList<WeatherInfo>();
+
+
+  public String getName() {
+    return name;
+  }
+
+  public Integer getHumidity() {
+    return main.humidity;
+  }
+
+  public Integer getPressure() {
+    return main.pressure;
+  }
+
+  public Integer getTemperature() {
+    return main.temp;
+  }
+
+  public String getDescription() {
+    return weather.get(0).description;
+  }
+
+  private class MainInfo {
+    @SerializedName("humidity")
+    Integer humidity;
+    @SerializedName("pressure")
+    Integer pressure;
+    @SerializedName("temperature")
+    Integer temp;
+  }
+
+  private class WeatherInfo {
+    @SerializedName("description")
+    String description;
+  }
+
+  /*  @SerializedName("cod")
   String     code;
   @SerializedName("message")
   String     message;
@@ -16,8 +58,8 @@ public class WeatherMap {
   @SerializedName("list")
   List<Item> list;
   @SerializedName("city")
-  City       city;
-
+  City       city;*/
+/*
   public static WeatherMap map() {
     WeatherMap map = new WeatherMap();
     map.code = "code";
@@ -59,9 +101,10 @@ public class WeatherMap {
   public String getCountry() {
     return city.country;
   }
+*/
 
 
-  private class Item {
+  /*private class Item {
 
     @SerializedName("dt")
     Integer dt;
@@ -163,5 +206,6 @@ public class WeatherMap {
     Float lat;
     @SerializedName("lon")
     Float lon;
-  }
+  }*/
+  //////////////////////////////
 }

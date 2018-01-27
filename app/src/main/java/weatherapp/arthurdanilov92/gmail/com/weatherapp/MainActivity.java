@@ -22,6 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import org.json.JSONObject;
 
@@ -46,8 +47,8 @@ public class MainActivity extends AppCompatActivity {
     NavigationView navigationView = findViewById(R.id.nav_view);
     navigationView.setNavigationItemSelectedListener(new NavDrawerListener(this));
 
-    String cityName = loadCityNameFromSharedPreferences();
-    if (!TextUtils.isEmpty(cityName)) changeCity(cityName);
+    /*String cityName = loadCityNameFromSharedPreferences();
+    if (!TextUtils.isEmpty(cityName)) changeCity(cityName);*/
   }
 
   @Override
@@ -126,10 +127,14 @@ public class MainActivity extends AppCompatActivity {
   private void renderWeather(JSONObject json) {
     Log.d("RenderWeatherMethodRun", "json " + json.toString());
     try {
-      WeatherMap map         = new Gson().fromJson(json.toString(), WeatherMap.class);
-      String     temperature = map.getDescription();
+      Gson       gson          = new GsonBuilder().serializeNulls().create();
+      WeatherMap weatherObject = gson.fromJson(json.toString(), WeatherMap.class);
+      String     cityName      = weatherObject.getName();
+      Integer    temperature   = weatherObject.getTemperature();
 
+      TextView cityNameView    = findViewById(R.id.city_name);
       TextView temperatureView = findViewById(R.id.today_temperature);
+      cityNameView.setText(cityName);
       temperatureView.setText(temperature);
     } catch (Exception e) {
       Log.d("Catch RenderWeather", e.getMessage());
