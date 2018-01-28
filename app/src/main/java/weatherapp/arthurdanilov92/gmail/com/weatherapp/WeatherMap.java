@@ -2,18 +2,16 @@ package weatherapp.arthurdanilov92.gmail.com.weatherapp;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class WeatherMap {
 
   @SerializedName("name")
   String name;
-  //@SerializedName("mainInfo")
+  @SerializedName("main")
   MainInfo main;
-  //@SerializedName("weatherInfo")
-  List<WeatherInfo> weather = new ArrayList<WeatherInfo>();
-
+  @SerializedName("weather")
+  List<WeatherInfo> weather;
 
   public String getName() {
     return name;
@@ -40,7 +38,7 @@ public class WeatherMap {
     Integer humidity;
     @SerializedName("pressure")
     Integer pressure;
-    @SerializedName("temperature")
+    @SerializedName("temp")
     Integer temp;
   }
 

@@ -22,7 +22,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 import org.json.JSONObject;
 
@@ -127,8 +126,8 @@ public class MainActivity extends AppCompatActivity {
   private void renderWeather(JSONObject json) {
     Log.d("RenderWeatherMethodRun", "json " + json.toString());
     try {
-      Gson       gson          = new GsonBuilder().serializeNulls().create();
-      WeatherMap weatherObject = gson.fromJson(json.toString(), WeatherMap.class);
+      //Gson       gson          = new GsonBuilder().serializeNulls().create();
+      WeatherMap weatherObject = new Gson().fromJson(json.toString(), WeatherMap.class);
       String     cityName      = weatherObject.getName();
       Integer    temperature   = weatherObject.getTemperature();
 
