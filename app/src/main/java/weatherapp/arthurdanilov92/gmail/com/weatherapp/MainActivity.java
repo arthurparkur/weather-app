@@ -126,15 +126,23 @@ public class MainActivity extends AppCompatActivity {
   private void renderWeather(JSONObject json) {
     Log.d("RenderWeatherMethodRun", "json " + json.toString());
     try {
-      //Gson       gson          = new GsonBuilder().serializeNulls().create();
       WeatherMap weatherObject = new Gson().fromJson(json.toString(), WeatherMap.class);
       String     cityName      = weatherObject.getName();
-      Integer    temperature   = weatherObject.getTemperature();
+      Double     temperature   = weatherObject.getTemperature();
+      Integer    pressure      = weatherObject.getPressure();
+      Integer    humidity      = weatherObject.getHumidity();
+      String     description   = weatherObject.getDescription();
 
       TextView cityNameView    = findViewById(R.id.city_name);
       TextView temperatureView = findViewById(R.id.today_temperature);
+      TextView pressureView    = findViewById(R.id.today_pressure);
+      TextView humidityView    = findViewById(R.id.today_humidity);
+      TextView descriptionView = findViewById(R.id.today_description);
       cityNameView.setText(cityName);
-      temperatureView.setText(temperature);
+      temperatureView.setText(temperature.toString());
+      pressureView.setText(pressure.toString());
+      humidityView.setText(humidity.toString());
+      descriptionView.setText(description.toString());
     } catch (Exception e) {
       Log.d("Catch RenderWeather", e.getMessage());
     }

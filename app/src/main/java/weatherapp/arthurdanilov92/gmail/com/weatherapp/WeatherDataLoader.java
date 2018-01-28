@@ -12,7 +12,7 @@ import java.net.URL;
 class WeatherDataLoader {
 
   private static final String appKey               = "10792cf43e4992f76dfdb635ad0be4eb";
-  private static final String OPEN_WEATHER_MAP_API = "http://api.openweathermap.org/data/2.5/forecast?q=%s&appId=%s";
+  private static final String OPEN_WEATHER_MAP_API = "http://api.openweathermap.org/data/2.5/weather?q=%s&appId=%s";
   private static final String STATUS_CODE          = "cod";
   private static final String NEW_LINE             = "\n";
   private static final int    SUCCESS_STATUS_CODE  = 200;
