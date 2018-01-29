@@ -23,10 +23,12 @@ import android.widget.Toast;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import weatherapp.arthurdanilov92.gmail.com.weatherapp.db.DataBaseService;
 
 public class MainActivity extends AppCompatActivity {
 
   private final String  PREF_FILE = "WeatherPref";
+  DataBaseService dataBaseService;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +45,9 @@ public class MainActivity extends AppCompatActivity {
 
     NavigationView navigationView = findViewById(R.id.nav_view);
     navigationView.setNavigationItemSelectedListener(new NavDrawerListener(this));
+
+    dataBaseService = new DataBaseService(getApplicationContext());
+    dataBaseService.open();
 
     String cityName = loadCityNameFromSharedPreferences();
     if (!TextUtils.isEmpty(cityName)) weatherRequest(cityName);
@@ -133,8 +138,9 @@ public class MainActivity extends AppCompatActivity {
               public void onResponse(Call<WeatherModel> call, Response<WeatherModel> response) {
                 WeatherModel body = response.body();
                 if (body != null) {
-                  renderWeather(response.body());
+                  renderWeather(body);
                   saveCityNameToSharedPreferences(cityName);
+                  dataBaseService.addOrUpdateWeatherEntry(body);
                 } else Log.d("api/data/2.5/weather", "empty body");
               }
 
