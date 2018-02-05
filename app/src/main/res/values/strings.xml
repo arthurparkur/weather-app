@@ -15,4 +15,8 @@
 	<string name="place_not_found">Place not found</string>
 	<string name="empty_city_name">City name is empty</string>
 	<string name="sp_city_key">sp_city_key</string>
+	<string name="temperature_text">temperature:</string>
+	<string name="pressure_text">pressure:</string>
+	<string name="humidity_text">humidity:</string>
+	<string name="description_text">description:</string>
 </resources>

@@ -11,7 +11,9 @@ import weatherapp.arthurdanilov92.gmail.com.weatherapp.R;
 public class TodayFrgt extends Fragment {
 
   @Override
-  public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+  public View onCreateView(LayoutInflater inflater,
+                           ViewGroup container,
+                           Bundle savedInstanceState) {
     View view = inflater.inflate(R.layout.weather_today_frgt, container, false);
     return view;
   }

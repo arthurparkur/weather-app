@@ -2,8 +2,10 @@ package weatherapp.arthurdanilov92.gmail.com.weatherapp;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -16,9 +18,12 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.Date;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -27,7 +32,8 @@ import weatherapp.arthurdanilov92.gmail.com.weatherapp.db.DataBaseService;
 
 public class MainActivity extends AppCompatActivity {
 
-  private final String  PREF_FILE = "WeatherPref";
+  private final String PREF_FILE      = "WeatherPref";
+  private final int    OLD_DATE_LIMIT = 10800000;
   DataBaseService dataBaseService;
 
   @Override
@@ -46,11 +52,19 @@ public class MainActivity extends AppCompatActivity {
     NavigationView navigationView = findViewById(R.id.nav_view);
     navigationView.setNavigationItemSelectedListener(new NavDrawerListener(this));
 
+    FloatingActionButton floatActBtn = findViewById(R.id.floating_action_btn);
+    floatActBtn.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        shareWeather();
+      }
+    });
+
     dataBaseService = new DataBaseService(getApplicationContext());
     dataBaseService.open();
 
     String cityName = loadCityNameFromSharedPreferences();
-    if (!TextUtils.isEmpty(cityName)) weatherRequest(cityName);
+    if (!TextUtils.isEmpty(cityName)) getWeatherData(cityName);
   }
 
   @Override
@@ -90,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
       @Override
       public void onClick(DialogInterface dialog, int which) {
         String cityName = input.getText().toString();
-        if (!TextUtils.isEmpty(cityName)) weatherRequest(cityName);
+        if (!TextUtils.isEmpty(cityName)) getWeatherData(cityName);
         else Toast.makeText(getApplicationContext(),
                             getString(R.string.empty_city_name),
                             Toast.LENGTH_LONG).show();
@@ -130,18 +144,32 @@ public class MainActivity extends AppCompatActivity {
     return sp.getString(getString(R.string.sp_city_key), "");
   }
 
-  public void weatherRequest(final String cityName) {
+  public void getWeatherData(final String cityName) {
+    WeatherModel weatherObj = dataBaseService.getWeatherData(cityName);
+    if (weatherObj != null) {
+      App.setWeatherObjSingleton(weatherObj);
+      if (weatherObj.getUpdatedDate() + OLD_DATE_LIMIT < ((new Date()).getTime())) {
+        loadWeather(cityName);
+        return;
+      }
+      renderWeather(weatherObj);
+    }
+    loadWeather(cityName);
+  }
+
+  public void loadWeather(final String cityName) {
     App.getWeatherApi()
             .getWeatherByCityName(cityName, App.appKey)
             .enqueue(new Callback<WeatherModel>() {
               @Override
               public void onResponse(Call<WeatherModel> call, Response<WeatherModel> response) {
-                WeatherModel body = response.body();
-                if (body != null) {
-                  renderWeather(body);
+                WeatherModel weatherObj = response.body();
+                if (weatherObj != null) {
+                  App.setWeatherObjSingleton(weatherObj);
+                  renderWeather(weatherObj);
                   saveCityNameToSharedPreferences(cityName);
-                  dataBaseService.addOrUpdateWeatherEntry(body);
-                } else Log.d("api/data/2.5/weather", "empty body");
+                  dataBaseService.addOrUpdateWeatherEntry(weatherObj);
+                } else Log.d("api/data/2.5/weather", "empty request body");
               }
 
               @Override
@@ -149,5 +177,16 @@ public class MainActivity extends AppCompatActivity {
                 Log.d("api/data/2.5/weather", t.getMessage());
               }
             });
+  }
+
+  public void shareWeather() {
+    if (App.getWeatherObjSingleton() != null) {
+      Intent intent = new Intent(Intent.ACTION_SEND);
+      intent.setType("text/plain");
+      intent.putExtra(Intent.EXTRA_TEXT, App.getWeatherObjSingleton().getAndFormatWeatherInfo());
+      String title   = "Tratata";
+      Intent chooser = Intent.createChooser(intent, title);
+      startActivity(chooser);
+    }
   }
 }
