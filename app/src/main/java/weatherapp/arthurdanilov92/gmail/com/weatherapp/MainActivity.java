@@ -23,8 +23,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.Date;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -145,7 +143,8 @@ public class MainActivity extends AppCompatActivity {
   }
 
   public void getWeatherData(final String cityName) {
-    WeatherModel weatherObj = dataBaseService.getWeatherData(cityName);
+    loadWeatherForWeek(cityName);
+    /*WeatherModel weatherObj = dataBaseService.getWeatherData(cityName);
     if (weatherObj != null) {
       App.setWeatherObjSingleton(weatherObj);
       if (weatherObj.getUpdatedDate() + OLD_DATE_LIMIT < ((new Date()).getTime())) {
@@ -154,7 +153,7 @@ public class MainActivity extends AppCompatActivity {
       }
       renderWeather(weatherObj);
     }
-    loadWeather(cityName);
+    loadWeather(cityName);*/
   }
 
   public void loadWeather(final String cityName) {
@@ -174,6 +173,24 @@ public class MainActivity extends AppCompatActivity {
 
               @Override
               public void onFailure(Call<WeatherModel> call, Throwable t) {
+                Log.d("api/data/2.5/weather", t.getMessage());
+              }
+            });
+  }
+
+  public void loadWeatherForWeek(final String cityName) {
+    App.getWeatherApi()
+            .getWeatherWeekByCityName(cityName, App.appKey)
+            .enqueue(new Callback<WeatherWeekModel>() {
+              @Override
+              public void onResponse(Call<WeatherWeekModel> call, Response<WeatherWeekModel> response) {
+                WeatherWeekModel weatherObj = response.body();
+                Log.d("aaaaaaaaaaaaaa", "ddddddddddddd");
+                System.out.println(weatherObj);
+              }
+
+              @Override
+              public void onFailure(Call<WeatherWeekModel> call, Throwable t) {
                 Log.d("api/data/2.5/weather", t.getMessage());
               }
             });

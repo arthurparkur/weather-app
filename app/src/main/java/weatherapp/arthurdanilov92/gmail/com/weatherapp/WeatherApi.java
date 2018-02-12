@@ -7,4 +7,7 @@ import retrofit2.http.Query;
 public interface WeatherApi {
   @GET("data/2.5/weather")
   Call<WeatherModel> getWeatherByCityName(@Query("q") String cityName, @Query("appId") String appId);
+
+  @GET("data/2.5/forecast/daily")
+  Call<WeatherWeekModel> getWeatherWeekByCityName(@Query("q") String cityName, @Query("appId") String appId);
 }

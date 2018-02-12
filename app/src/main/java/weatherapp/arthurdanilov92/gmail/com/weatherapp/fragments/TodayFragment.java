@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 
 import weatherapp.arthurdanilov92.gmail.com.weatherapp.R;
 
-public class TodayFrgt extends Fragment {
+public class TodayFragment extends Fragment {
 
   @Override
   public View onCreateView(LayoutInflater inflater,

@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 
 import weatherapp.arthurdanilov92.gmail.com.weatherapp.R;
 
-public class ContactsFrgt extends Fragment {
+public class ContactsFragment extends Fragment {
 
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

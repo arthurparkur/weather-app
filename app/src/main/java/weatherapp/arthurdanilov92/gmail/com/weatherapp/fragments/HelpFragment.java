@@ -8,10 +8,11 @@ import android.view.ViewGroup;
 
 import weatherapp.arthurdanilov92.gmail.com.weatherapp.R;
 
-public class WeekFrgt extends Fragment {
+public class HelpFragment extends Fragment {
+
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-    View view = inflater.inflate(R.layout.weather_week_frgt, container, false);
+    View view = inflater.inflate(R.layout.help_frgt, container, false);
     return view;
   }
 }
