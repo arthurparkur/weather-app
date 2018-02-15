@@ -31,59 +31,62 @@ public class WeatherWeekModel {
     this.city.name = name;
   }
 
-  public String getHumidity() {
-    StringBuffer humidityLine = new StringBuffer();
-    for (int i = 0; i < list.size(); i++) {
-      humidityLine.append(list.get(i).humidity + " ");
-    }
-    return humidityLine.toString();
+  public Float getTemp(Integer day) {
+    return list.get(day - 1).temperatureElement.day;
   }
 
-  public String getPressure() {
-    StringBuffer pressureLine = new StringBuffer();
-    for (int i = 0; i < list.size(); i++) {
-      pressureLine.append(list.get(i).pressure + " ");
-    }
-    return pressureLine.toString();
+  public String getIcon(Integer day) {
+    return list.get(day - 1).weatherElements.get(0).icon;
   }
 
-  public String getTemperature() {
-    StringBuffer temperatureLine = new StringBuffer();
-    for (int i = 0; i < list.size(); i++) {
-      temperatureLine.append(list.get(i).temperatureElement.day + " ");
+  public void setTemp(Float temp) {
+    Item item = new Item();
+    item.temperatureElement.day = temp;
+    list.add(item);
+  }
+
+  public void setIcon(Integer day, String icon) {
+    if (list.get(day - 1) == null) {
+      Item item = new Item();
+      item.weatherElements.get(0).icon = icon;
+      list.add(item);
     }
-    return temperatureLine.toString();
+    list.get(day - 1).weatherElements.get(0).icon = icon;
+  }
+
+  public Long getUpdatedDate() {
+    return updatedDate;
+  }
+
+  public void setUpdatedDate(Long updatedDate) {
+    this.updatedDate = updatedDate;
   }
 
   private class Item {
-
     @SerializedName("clouds")
-    Integer clouds;
-
+    Integer              clouds;
     @SerializedName("deg")
-    Integer deg;
-
+    Integer              deg;
     @SerializedName("dt")
-    Float dt;
-
+    Float                dt;
     @SerializedName("humidity")
-    Integer humidity;
-
+    Integer              humidity;
     @SerializedName("pressure")
-    Float pressure;
-
+    Float                pressure;
     @SerializedName("snow")
-    Float snow;
-
+    Float                snow;
     @SerializedName("speed")
-    Float speed;
-
+    Float                speed;
     @SerializedName("weather")
     List<WeatherElement> weatherElements;
+    @SerializedName("temp")
+    TemperatureElement   temperatureElement;
 
-    @SerializedName("temperature")
-    TemperatureElement temperatureElement;
-
+    public Item() {
+      this.weatherElements = new ArrayList<WeatherElement>();
+      weatherElements.add(new WeatherElement());
+      this.temperatureElement = new TemperatureElement();
+    }
   }
 
   private class TemperatureElement {
@@ -117,23 +120,17 @@ public class WeatherWeekModel {
 
     @SerializedName("geoname_id")
     Integer geoname_id;
-
     @SerializedName("name")
-    String name;
-
+    String  name;
     @SerializedName("country")
-    String country;
-
+    String  country;
     @SerializedName("lat")
-    float lat;
-
+    float   lat;
     @SerializedName("lon")
-    float lon;
-
+    float   lon;
     @SerializedName("population")
     Integer population;
-
     @SerializedName("type")
-    String type;
+    String  type;
   }
 }

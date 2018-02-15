@@ -16,7 +16,12 @@
 		android:gravity="center_horizontal"
 		android:orientation="vertical">
 
-		<include layout="@layout/weather_today_frgt"></include>
+		<fragment
+			android:id="@+id/weather_today"
+			android:name="weatherapp.arthurdanilov92.gmail.com.weatherapp.fragments.TodayFragment"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_weight="1" />
 
 	</LinearLayout>
 

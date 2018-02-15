@@ -7,96 +7,11 @@
 	android:paddingTop="50dp">
 
 	<TextView
-		android:id="@+id/city_name"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_marginBottom="25dp"
 		android:gravity="center_horizontal"
 		android:text="@string/choose_city_text"
 		android:textSize="30sp" />
-
-	<LinearLayout
-		android:layout_width="match_parent"
-		android:layout_height="match_parent"
-		android:layout_marginTop="15dp"
-		android:orientation="horizontal">
-
-		<TextView
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:text="@string/temperature_text"
-			android:textSize="18sp" />
-
-		<TextView
-			android:id="@+id/today_temperature"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_gravity="center"
-			android:layout_marginLeft="15dp"
-			android:textSize="18sp" />
-	</LinearLayout>
-
-	<LinearLayout
-		android:layout_width="match_parent"
-		android:layout_height="match_parent"
-		android:layout_marginTop="15dp"
-		android:orientation="horizontal">
-
-		<TextView
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:text="@string/pressure_text"
-			android:textSize="18sp" />
-
-		<TextView
-			android:id="@+id/today_pressure"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_gravity="center"
-			android:layout_marginStart="15dp"
-			android:textSize="18sp" />
-	</LinearLayout>
-
-	<LinearLayout
-		android:layout_width="match_parent"
-		android:layout_height="match_parent"
-		android:layout_marginTop="15dp">
-
-		<TextView
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:text="@string/humidity_text"
-			android:textSize="18sp" />
-
-		<TextView
-			android:id="@+id/today_humidity"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_gravity="center"
-			android:layout_marginStart="15dp"
-			android:textSize="18sp" />
-
-	</LinearLayout>
-
-	<LinearLayout
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_marginTop="15dp"
-		android:orientation="horizontal">
-
-		<TextView
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:text="@string/description_text"
-			android:textSize="18sp" />
-
-		<TextView
-			android:id="@+id/today_description"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_gravity="center"
-			android:layout_marginStart="15dp"
-			android:textSize="18sp" />
-	</LinearLayout>
 
 </LinearLayout>

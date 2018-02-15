@@ -6,21 +6,12 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class App extends Application {
-  static final String appKey = "10792cf43e4992f76dfdb635ad0be4eb";
+  public static final String appKey = "10792cf43e4992f76dfdb635ad0be4eb";
   private static WeatherApi weatherApi;
-  private static WeatherModel weatherObjSingleton = null;
-  private Retrofit retrofit;
+  private        Retrofit   retrofit;
 
   public static WeatherApi getWeatherApi() {
     return weatherApi;
-  }
-
-  public static WeatherModel getWeatherObjSingleton() {
-    return weatherObjSingleton;
-  }
-
-  public static void setWeatherObjSingleton(WeatherModel weatherObj) {
-    weatherObjSingleton = weatherObj;
   }
 
   @Override
