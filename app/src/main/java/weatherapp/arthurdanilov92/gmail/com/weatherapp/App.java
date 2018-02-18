@@ -7,10 +7,10 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class App extends Application {
   public static final String appKey = "10792cf43e4992f76dfdb635ad0be4eb";
-  private static WeatherApi weatherApi;
-  private        Retrofit   retrofit;
+  private static IWeatherApi weatherApi;
+  private        Retrofit    retrofit;
 
-  public static WeatherApi getWeatherApi() {
+  public static IWeatherApi getWeatherApi() {
     return weatherApi;
   }
 
@@ -23,6 +23,6 @@ public class App extends Application {
             .addConverterFactory(GsonConverterFactory.create())
             .build();
 
-    weatherApi = retrofit.create(WeatherApi.class);
+    weatherApi = retrofit.create(IWeatherApi.class);
   }
 }

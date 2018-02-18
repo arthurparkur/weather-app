@@ -5,7 +5,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -20,15 +19,19 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Date;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import weatherapp.arthurdanilov92.gmail.com.weatherapp.db.DataBaseService;
+import weatherapp.arthurdanilov92.gmail.com.weatherapp.models.WeatherModel;
+import weatherapp.arthurdanilov92.gmail.com.weatherapp.models.WeatherWeekModel;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -36,29 +39,27 @@ public class MainActivity extends AppCompatActivity {
   private final int    OLD_DATE_LIMIT = 10800000;
   DataBaseService dataBaseService;
 
+  @BindView(R.id.toolbar)
+  Toolbar        toolbar;
+  @BindView(R.id.drawer_layout)
+  DrawerLayout   drawer;
+  @BindView(R.id.nav_view)
+  NavigationView navigationView;
+
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.drawer_activity_main);
-    Toolbar toolbar = findViewById(R.id.toolbar);
+    ButterKnife.bind(this);
+
     setSupportActionBar(toolbar);
 
-    DrawerLayout drawer = findViewById(R.id.drawer_layout);
     ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
             this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
     drawer.addDrawerListener(toggle);
     toggle.syncState();
 
-    NavigationView navigationView = findViewById(R.id.nav_view);
     navigationView.setNavigationItemSelectedListener(new NavDrawerListener(this));
-
-    FloatingActionButton floatActBtn = findViewById(R.id.floating_action_btn);
-    floatActBtn.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View v) {
-        shareWeather();
-      }
-    });
 
     dataBaseService = new DataBaseService(getApplicationContext());
     dataBaseService.open();
@@ -118,25 +119,6 @@ public class MainActivity extends AppCompatActivity {
     builder.show();
   }
 
-  private void renderWeather(WeatherModel weatherObject) {
-    String  cityName    = weatherObject.getName();
-    Double  temperature = weatherObject.getTemperature();
-    Integer pressure    = weatherObject.getPressure();
-    Integer humidity    = weatherObject.getHumidity();
-    String  description = weatherObject.getDescription();
-
-    TextView cityNameView    = findViewById(R.id.city_name);
-    TextView temperatureView = findViewById(R.id.today_temperature);
-    TextView pressureView    = findViewById(R.id.today_pressure);
-    TextView humidityView    = findViewById(R.id.today_humidity);
-    TextView descriptionView = findViewById(R.id.today_description);
-    cityNameView.setText(cityName);
-    temperatureView.setText(temperature.toString());
-    pressureView.setText(pressure.toString());
-    humidityView.setText(humidity.toString());
-    descriptionView.setText(description);
-  }
-
   private void saveCityNameToSharedPreferences(String city) {
     SharedPreferences        sp       = getSharedPreferences(PREF_FILE, Context.MODE_PRIVATE);
     SharedPreferences.Editor spEditor = sp.edit();
@@ -191,7 +173,8 @@ public class MainActivity extends AppCompatActivity {
             .getWeatherWeekByCityName(cityName, App.appKey)
             .enqueue(new Callback<WeatherWeekModel>() {
               @Override
-              public void onResponse(Call<WeatherWeekModel> call, Response<WeatherWeekModel> response) {
+              public void onResponse(Call<WeatherWeekModel> call,
+                                     Response<WeatherWeekModel> response) {
                 WeatherWeekModel weatherObj = response.body();
                 if (weatherObj != null) {
                   Log.d("data/2.5/forecast/daily", " : success");
@@ -207,6 +190,11 @@ public class MainActivity extends AppCompatActivity {
             });
   }
 
+  @OnClick(R.id.floating_action_btn)
+  public void onClick(View v) {
+    shareWeather();
+  }
+
   public void shareWeather() {
     if (WeatherStorage.getWeatherObjSingleton() != null) {
       Intent intent = new Intent(Intent.ACTION_SEND);
@@ -215,6 +203,8 @@ public class MainActivity extends AppCompatActivity {
       String title   = "Share";
       Intent chooser = Intent.createChooser(intent, title);
       startActivity(chooser);
-    }
+    } else Toast.makeText(getApplicationContext(),
+                          getString(R.string.empty_city),
+                          Toast.LENGTH_LONG).show();
   }
 }

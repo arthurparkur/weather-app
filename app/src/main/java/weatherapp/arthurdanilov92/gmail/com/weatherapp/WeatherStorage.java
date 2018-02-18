@@ -1,5 +1,8 @@
 package weatherapp.arthurdanilov92.gmail.com.weatherapp;
 
+import weatherapp.arthurdanilov92.gmail.com.weatherapp.models.WeatherModel;
+import weatherapp.arthurdanilov92.gmail.com.weatherapp.models.WeatherWeekModel;
+
 public class WeatherStorage {
 
   private static WeatherModel     weatherObjSingleton     = null;

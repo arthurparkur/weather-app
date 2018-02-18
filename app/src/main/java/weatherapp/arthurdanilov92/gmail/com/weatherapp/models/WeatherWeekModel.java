@@ -1,4 +1,4 @@
-package weatherapp.arthurdanilov92.gmail.com.weatherapp;
+package weatherapp.arthurdanilov92.gmail.com.weatherapp.models;
 
 import com.google.gson.annotations.SerializedName;
 

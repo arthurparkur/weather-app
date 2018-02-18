@@ -1,17 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:id="@+id/weather_today"
+	android:id="@+id/today_root_fragment"
 	android:layout_width="wrap_content"
-	android:layout_height="wrap_content"
-	android:orientation="vertical"
-	android:paddingTop="50dp">
-
-	<TextView
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_marginBottom="25dp"
-		android:gravity="center_horizontal"
-		android:text="@string/choose_city_text"
-		android:textSize="30sp" />
+	android:layout_height="match_parent"
+	android:layout_gravity="center_horizontal"
+	android:animateLayoutChanges="true"
+	android:orientation="vertical">
 
 </LinearLayout>

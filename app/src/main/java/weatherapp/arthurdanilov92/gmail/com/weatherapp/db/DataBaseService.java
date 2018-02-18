@@ -8,8 +8,8 @@ import android.database.sqlite.SQLiteDatabase;
 
 import java.util.Date;
 
-import weatherapp.arthurdanilov92.gmail.com.weatherapp.WeatherModel;
-import weatherapp.arthurdanilov92.gmail.com.weatherapp.WeatherWeekModel;
+import weatherapp.arthurdanilov92.gmail.com.weatherapp.models.WeatherModel;
+import weatherapp.arthurdanilov92.gmail.com.weatherapp.models.WeatherWeekModel;
 
 public class DataBaseService {
 
@@ -35,6 +35,7 @@ public class DataBaseService {
     values.put(DataBaseHelper.COL_PRESSURE, object.getPressure());
     values.put(DataBaseHelper.COL_HUMIDITY, object.getHumidity());
     values.put(DataBaseHelper.COL_DESCRIPTION, object.getDescription());
+    values.put(DataBaseHelper.COL_ICON, object.getIcon());
     values.put(DataBaseHelper.COL_UPDATE_DATE, (new Date()).getTime());
 
     int changedRow = database.update(DataBaseHelper.TODAY_TABLE_NAME, values,
@@ -96,6 +97,7 @@ public class DataBaseService {
         weatherObj.setPressure(Integer.parseInt(cr.getString(cr.getColumnIndexOrThrow(DataBaseHelper.COL_PRESSURE))));
         weatherObj.setTemp(Double.parseDouble(cr.getString(cr.getColumnIndexOrThrow(DataBaseHelper.COL_PRESSURE))));
         weatherObj.setDescription(cr.getString(cr.getColumnIndexOrThrow(DataBaseHelper.COL_PRESSURE)));
+        weatherObj.setIcon(cr.getString(cr.getColumnIndexOrThrow(DataBaseHelper.COL_ICON)));
         weatherObj.setUpdatedDate(Long.parseLong(cr.getString(cr.getColumnIndexOrThrow(DataBaseHelper.COL_UPDATE_DATE))));
       }
     } catch (Exception e) {

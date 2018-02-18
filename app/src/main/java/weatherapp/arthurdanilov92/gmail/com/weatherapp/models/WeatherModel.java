@@ -1,4 +1,4 @@
-package weatherapp.arthurdanilov92.gmail.com.weatherapp;
+package weatherapp.arthurdanilov92.gmail.com.weatherapp.models;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -60,6 +60,17 @@ public class WeatherModel {
     weather.add(l, el);
   }
 
+  public String getIcon() {
+    return weather.get(0).icon;
+  }
+
+  public void setIcon(String icon) {
+    int         l  = weather.size();
+    WeatherInfo el = new WeatherInfo();
+    el.icon = icon;
+    weather.add(l, el);
+  }
+
   public Long getUpdatedDate() {
     return updatedDate;
   }
@@ -92,5 +103,8 @@ public class WeatherModel {
   private class WeatherInfo {
     @SerializedName("description")
     String description;
+    @SerializedName("icon")
+    String icon;
+
   }
 }

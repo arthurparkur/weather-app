@@ -7,23 +7,24 @@ import android.util.Log;
 
 public class DataBaseHelper extends SQLiteOpenHelper {
 
-  public static final  String TODAY_TABLE_NAME = "weather_history";
-  public static final  String WEEK_TABLE_NAME  = "week_weather_history";
+  public static final String TODAY_TABLE_NAME = "weather_history";
+  public static final String WEEK_TABLE_NAME  = "week_weather_history";
   //columns
-  public static final  String COL_ID           = "id";
-  public static final  String COL_CITY_NAME    = "city_name";
-  public static final  String COL_TEMPERATURE  = "temperature";
-  public static final  String COL_PRESSURE     = "pressure";
-  public static final  String COL_HUMIDITY     = "humidity";
-  public static final  String COL_DESCRIPTION  = "description";
-  public static final  String COL_UPDATE_DATE  = "update_date";
-  public static final  String COL_DAY1_TEMP    = "day1_temp";
-  public static final  String COL_DAY1_ICO     = "day1_icon";
-  public static final  String COL_DAY2_TEMP    = "day2_temp";
-  public static final  String COL_DAY2_ICO     = "day2_icon";
-  public static final  String COL_DAY3_TEMP    = "day3_temp";
-  public static final  String COL_DAY3_ICO     = "day3_icon";
-  public static final  String COL_DAY4_TEMP    = "day4_temp";
+  public static final String COL_ID           = "id";
+  public static final String COL_CITY_NAME    = "city_name";
+  public static final String COL_TEMPERATURE  = "temperature";
+  public static final String COL_PRESSURE     = "pressure";
+  public static final String COL_HUMIDITY     = "humidity";
+  public static final String COL_DESCRIPTION  = "description";
+  public static final String COL_ICON         = "icon";
+  public static final String COL_UPDATE_DATE  = "update_date";
+  public static final String COL_DAY1_TEMP    = "day1_temp";
+  public static final String COL_DAY1_ICO     = "day1_icon";
+  public static final String COL_DAY2_TEMP    = "day2_temp";
+  public static final String COL_DAY2_ICO     = "day2_icon";
+  public static final String COL_DAY3_TEMP    = "day3_temp";
+  public static final String COL_DAY3_ICO     = "day3_icon";
+  public static final String COL_DAY4_TEMP    = "day4_temp";
   public static final  String COL_DAY4_ICO     = "day4_icon";
   public static final  String COL_DAY5_TEMP    = "day5_temp";
   public static final  String COL_DAY5_ICO     = "day5_icon";
@@ -48,6 +49,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                        + COL_PRESSURE + " INTEGER,"
                        + COL_HUMIDITY + " INTEGER,"
                        + COL_DESCRIPTION + " TEXT,"
+                       + COL_ICON + " TEXT,"
                        + COL_UPDATE_DATE + " TEXT);");
 
     db.execSQL("CREATE TABLE " + WEEK_TABLE_NAME + " (" + COL_ID
