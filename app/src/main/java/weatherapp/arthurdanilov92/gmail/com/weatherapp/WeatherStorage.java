@@ -5,8 +5,9 @@ import weatherapp.arthurdanilov92.gmail.com.weatherapp.models.WeatherWeekModel;
 
 public class WeatherStorage {
 
-  private static WeatherModel     weatherObjSingleton     = null;
-  private static WeatherWeekModel weatherWeekObjSingleton = null;
+  private static WeatherModel     weatherObjSingleton       = null;
+  private static WeatherWeekModel weatherWeekObjSingleton   = null;
+  private static WeatherIntegrate weatherIntegrateSingleton = null;
 
   public static WeatherModel getWeatherObjSingleton() {
     return weatherObjSingleton;
@@ -22,5 +23,13 @@ public class WeatherStorage {
 
   public static void setWeatherWeekObjSingleton(WeatherWeekModel weatherWeekObjSingleton) {
     WeatherStorage.weatherWeekObjSingleton = weatherWeekObjSingleton;
+  }
+
+  public static WeatherIntegrate getWeatherIntegrateSingleton() {
+    return weatherIntegrateSingleton;
+  }
+
+  public static void setWeatherIntegrateSingleton(WeatherIntegrate weatherIntegrateSingleton) {
+    WeatherStorage.weatherIntegrateSingleton = weatherIntegrateSingleton;
   }
 }

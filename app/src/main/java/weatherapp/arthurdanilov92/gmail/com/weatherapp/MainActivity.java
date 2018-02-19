@@ -21,7 +21,10 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.io.IOException;
 import java.util.Date;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -37,7 +40,8 @@ public class MainActivity extends AppCompatActivity {
 
   private final String PREF_FILE      = "WeatherPref";
   private final int    OLD_DATE_LIMIT = 10800000;
-  DataBaseService dataBaseService;
+  DataBaseService   dataBaseService;
+  NavDrawerListener navDrawerListener;
 
   @BindView(R.id.toolbar)
   Toolbar        toolbar;
@@ -59,15 +63,16 @@ public class MainActivity extends AppCompatActivity {
     drawer.addDrawerListener(toggle);
     toggle.syncState();
 
-    navigationView.setNavigationItemSelectedListener(new NavDrawerListener(this));
+    navDrawerListener = new NavDrawerListener(this);
+    navDrawerListener.initFirstFragment();
+    navigationView.setNavigationItemSelectedListener(navDrawerListener);
 
     dataBaseService = new DataBaseService(getApplicationContext());
     dataBaseService.open();
 
     String cityName = loadCityNameFromSharedPreferences();
     if (!TextUtils.isEmpty(cityName)) {
-      getWeatherData(cityName);
-      getWeatherWeekData(cityName);
+      newGetWeahterData(cityName);
     }
   }
 
@@ -108,10 +113,8 @@ public class MainActivity extends AppCompatActivity {
       @Override
       public void onClick(DialogInterface dialog, int which) {
         String cityName = input.getText().toString();
-        if (!TextUtils.isEmpty(cityName)) {
-          getWeatherData(cityName);
-          getWeatherWeekData(cityName);
-        } else Toast.makeText(getApplicationContext(),
+        if (!TextUtils.isEmpty(cityName)) newGetWeahterData(cityName);
+        else Toast.makeText(getApplicationContext(),
                             getString(R.string.empty_city_name),
                             Toast.LENGTH_LONG).show();
       }
@@ -144,6 +147,7 @@ public class MainActivity extends AppCompatActivity {
     if (weatherObj != null && weatherObj.getUpdatedDate() + OLD_DATE_LIMIT < ((new Date()).getTime())) {
       WeatherStorage.setWeatherWeekObjSingleton(weatherObj);
     } else loadWeatherForWeek(cityName);
+    navDrawerListener.refreshFragments();
   }
 
   public void loadWeather(final String cityName) {
@@ -159,6 +163,7 @@ public class MainActivity extends AppCompatActivity {
                   saveCityNameToSharedPreferences(cityName);
                   dataBaseService.addOrUpdateWeatherEntry(weatherObj);
                 } else Log.d("api/data/2.5/weather", " : empty request body");
+                navDrawerListener.refreshFragments();
               }
 
               @Override
@@ -181,6 +186,7 @@ public class MainActivity extends AppCompatActivity {
                   WeatherStorage.setWeatherWeekObjSingleton(weatherObj);
                   dataBaseService.addOrUpdateWeatherWeekEntry(weatherObj);
                 } else Log.d("data/2.5/forecast/daily", " : empty request body");
+                navDrawerListener.refreshFragments();
               }
 
               @Override
@@ -188,6 +194,15 @@ public class MainActivity extends AppCompatActivity {
                 Log.d("data/2.5/forecast/daily", t.getMessage());
               }
             });
+  }
+
+  public void newGetWeahterData(final String cityName) {
+    WeatherIntegrate weatherObj = dataBaseService.newGetWeatherData(cityName);
+    if (!weatherObj.isEmpty() &&
+            (weatherObj.getUpdatedDate() + OLD_DATE_LIMIT < ((new Date()).getTime()))) {
+      WeatherStorage.setWeatherIntegrateSingleton(weatherObj);
+      navDrawerListener.refreshFragments();
+    } else loadWeatherData(cityName);
   }
 
   @OnClick(R.id.floating_action_btn)
@@ -206,5 +221,49 @@ public class MainActivity extends AppCompatActivity {
     } else Toast.makeText(getApplicationContext(),
                           getString(R.string.empty_city),
                           Toast.LENGTH_LONG).show();
+  }
+
+  public void loadWeatherData(final String cityName) {
+    CompletableFuture<WeatherModel> todaty = CompletableFuture.supplyAsync(() -> {
+      try {
+        return newLoadToday(cityName);
+      } catch (IOException e) {
+        e.printStackTrace();
+        return new WeatherModel();
+      }
+    });
+    CompletableFuture<WeatherWeekModel> week = CompletableFuture.supplyAsync(() -> {
+      try {
+        return newLoadWeek(cityName);
+      } catch (IOException e) {
+        e.printStackTrace();
+        return new WeatherWeekModel();
+      }
+    });
+    CompletableFuture<WeatherIntegrate> res = todaty.thenCombine(week, WeatherIntegrate::new);
+
+    try {
+      WeatherIntegrate weather = res.get();
+      if (!weather.isEmpty()) {
+        WeatherStorage.setWeatherIntegrateSingleton(weather);
+        dataBaseService.newAddOrUpdateWeather(weather);
+        navDrawerListener.refreshFragments();
+        saveCityNameToSharedPreferences(cityName);
+      }
+    } catch (InterruptedException | ExecutionException e) {
+      e.printStackTrace();
+    }
+  }
+
+  public WeatherModel newLoadToday(final String cityName) throws IOException {
+    return App.getWeatherApi()
+            .getWeatherByCityName(cityName, App.appKey)
+            .execute().body();
+  }
+
+  public WeatherWeekModel newLoadWeek(final String cityName) throws IOException {
+    return App.getWeatherApi()
+            .getWeatherWeekByCityName(cityName, App.appKey)
+            .execute().body();
   }
 }

@@ -17,13 +17,6 @@
 		android:orientation="vertical"
 		app:layout_constraintTop_toTopOf="parent">
 
-		<fragment
-			android:name="weatherapp.arthurdanilov92.gmail.com.weatherapp.fragments.TodayFragment"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_gravity="center_horizontal"
-			android:layout_weight="1" />
-
 	</LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

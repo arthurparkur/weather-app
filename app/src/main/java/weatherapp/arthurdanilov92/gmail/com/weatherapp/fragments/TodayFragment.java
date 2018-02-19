@@ -15,8 +15,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import weatherapp.arthurdanilov92.gmail.com.weatherapp.R;
+import weatherapp.arthurdanilov92.gmail.com.weatherapp.WeatherIntegrate;
 import weatherapp.arthurdanilov92.gmail.com.weatherapp.WeatherStorage;
-import weatherapp.arthurdanilov92.gmail.com.weatherapp.models.WeatherModel;
 
 public class TodayFragment extends Fragment {
 
@@ -26,8 +26,9 @@ public class TodayFragment extends Fragment {
                            Bundle savedInstanceState) {
     View view = inflater.inflate(R.layout.weather_today_frgt, container, false);
 
-    LinearLayout root       = view.findViewById(R.id.today_root_fragment);
-    WeatherModel weatherObj = WeatherStorage.getWeatherObjSingleton();
+    LinearLayout root = view.findViewById(R.id.today_root_fragment);
+    //WeatherModel     weatherObj = WeatherStorage.getWeatherObjSingleton();
+    WeatherIntegrate weatherObj = WeatherStorage.getWeatherIntegrateSingleton();
 
     if (weatherObj != null) {
       View content = inflater.inflate(R.layout.today_weather_content, null);
@@ -40,7 +41,7 @@ public class TodayFragment extends Fragment {
     return view;
   }
 
-  public void renderData(View v, WeatherModel obj) {
+  public void renderData(View v, WeatherIntegrate obj) {
     TextView  cityName    = v.findViewById(R.id.city_name);
     ImageView icon        = v.findViewById(R.id.today_icon);
     TextView  temperature = v.findViewById(R.id.today_temperature);
@@ -49,7 +50,7 @@ public class TodayFragment extends Fragment {
     TextView  description = v.findViewById(R.id.today_description);
 
     cityName.setText(obj.getName());
-    icon.setImageDrawable(getIcon(obj.getIcon()));
+    icon.setImageDrawable(getIcon(obj.getTodayIcon()));
     temperature.setText(obj.getTemperature().toString());
     pressure.setText(obj.getPressure().toString());
     humidity.setText(obj.getHumidity().toString());

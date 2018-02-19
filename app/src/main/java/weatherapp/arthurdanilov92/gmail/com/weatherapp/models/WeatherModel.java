@@ -21,6 +21,14 @@ public class WeatherModel {
     this.weather = new ArrayList<WeatherInfo>();
   }
 
+  public MainInfo getMain() {
+    return main;
+  }
+
+  public List<WeatherInfo> getWeather() {
+    return weather;
+  }
+
   public String getName() {
     return name;
   }
@@ -89,22 +97,5 @@ public class WeatherModel {
             + "Humidity: " + getHumidity() + "\n"
             + "Pressure: " + getPressure() + "\n"
             + "Description: " + getDescription();
-  }
-
-  private class MainInfo {
-    @SerializedName("humidity")
-    Integer humidity;
-    @SerializedName("pressure")
-    Integer pressure;
-    @SerializedName("temp")
-    Double  temp;
-  }
-
-  private class WeatherInfo {
-    @SerializedName("description")
-    String description;
-    @SerializedName("icon")
-    String icon;
-
   }
 }

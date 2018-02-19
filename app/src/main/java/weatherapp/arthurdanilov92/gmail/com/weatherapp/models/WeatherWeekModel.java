@@ -8,19 +8,23 @@ import java.util.List;
 public class WeatherWeekModel {
 
   @SerializedName("city")
-  City       city;
+  City                  city;
   @SerializedName("cnt")
-  Integer    cnt;
+  Integer               cnt;
   @SerializedName("list")
-  List<Item> list;
+  List<WeatherWeekItem> list;
   @SerializedName("message")
-  Float      message;
+  Float                 message;
 
   Long updatedDate;
 
   public WeatherWeekModel() {
     this.city = new City();
-    this.list = new ArrayList<Item>();
+    this.list = new ArrayList<WeatherWeekItem>();
+  }
+
+  public List<WeatherWeekItem> getWeekInfo() {
+    return list;
   }
 
   public String getName() {
@@ -40,14 +44,14 @@ public class WeatherWeekModel {
   }
 
   public void setTemp(Float temp) {
-    Item item = new Item();
+    WeatherWeekItem item = new WeatherWeekItem();
     item.temperatureElement.day = temp;
     list.add(item);
   }
 
   public void setIcon(Integer day, String icon) {
     if (list.get(day - 1) == null) {
-      Item item = new Item();
+      WeatherWeekItem item = new WeatherWeekItem();
       item.weatherElements.get(0).icon = icon;
       list.add(item);
     }
@@ -62,61 +66,7 @@ public class WeatherWeekModel {
     this.updatedDate = updatedDate;
   }
 
-  private class Item {
-    @SerializedName("clouds")
-    Integer              clouds;
-    @SerializedName("deg")
-    Integer              deg;
-    @SerializedName("dt")
-    Float                dt;
-    @SerializedName("humidity")
-    Integer              humidity;
-    @SerializedName("pressure")
-    Float                pressure;
-    @SerializedName("snow")
-    Float                snow;
-    @SerializedName("speed")
-    Float                speed;
-    @SerializedName("weather")
-    List<WeatherElement> weatherElements;
-    @SerializedName("temp")
-    TemperatureElement   temperatureElement;
-
-    public Item() {
-      this.weatherElements = new ArrayList<WeatherElement>();
-      weatherElements.add(new WeatherElement());
-      this.temperatureElement = new TemperatureElement();
-    }
-  }
-
-  private class TemperatureElement {
-
-    @SerializedName("day")
-    Float day;
-    @SerializedName("eve")
-    Float eve;
-    @SerializedName("max")
-    Float max;
-    @SerializedName("min")
-    Float min;
-    @SerializedName("morn")
-    Float morn;
-    @SerializedName("night")
-    Float night;
-  }
-
-  private class WeatherElement {
-    @SerializedName("id")
-    Integer id;
-    @SerializedName("main")
-    String  main;
-    @SerializedName("description")
-    String  description;
-    @SerializedName("icon")
-    String  icon;
-  }
-
-  private class City {
+  public class City {
 
     @SerializedName("geoname_id")
     Integer geoname_id;
@@ -133,4 +83,5 @@ public class WeatherWeekModel {
     @SerializedName("type")
     String  type;
   }
+
 }
