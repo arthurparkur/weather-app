@@ -4,7 +4,6 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,7 +17,7 @@ import weatherapp.arthurdanilov92.gmail.com.weatherapp.R;
 import weatherapp.arthurdanilov92.gmail.com.weatherapp.WeatherIntegrate;
 import weatherapp.arthurdanilov92.gmail.com.weatherapp.WeatherStorage;
 
-public class TodayFragment extends Fragment {
+public class TodayFragment extends ContentFragment {
 
   @Override
   public View onCreateView(LayoutInflater inflater,
@@ -27,11 +26,10 @@ public class TodayFragment extends Fragment {
     View view = inflater.inflate(R.layout.weather_today_frgt, container, false);
 
     LinearLayout root = view.findViewById(R.id.today_root_fragment);
-    //WeatherModel     weatherObj = WeatherStorage.getWeatherObjSingleton();
     WeatherIntegrate weatherObj = WeatherStorage.getWeatherIntegrateSingleton();
 
     if (weatherObj != null) {
-      View content = inflater.inflate(R.layout.today_weather_content, null);
+      View content = inflater.inflate(R.layout.weather_today_frgt_content, null);
       root.addView(content);
       renderData(view, weatherObj);
     } else {
@@ -41,6 +39,7 @@ public class TodayFragment extends Fragment {
     return view;
   }
 
+  @Override
   public void renderData(View v, WeatherIntegrate obj) {
     TextView  cityName    = v.findViewById(R.id.city_name);
     ImageView icon        = v.findViewById(R.id.today_icon);
@@ -57,6 +56,7 @@ public class TodayFragment extends Fragment {
     description.setText(obj.getDescription());
   }
 
+  @Override
   public void renderEmptyView(ViewGroup root) {
     TextView chooseCityTitle = new TextView(getActivity());
     chooseCityTitle.setText(R.string.choose_city_text);
