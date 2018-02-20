@@ -53,7 +53,7 @@ public class TodayFragment extends ContentFragment {
     temperature.setText(obj.getTemperature().toString());
     pressure.setText(obj.getPressure().toString());
     humidity.setText(obj.getHumidity().toString());
-    description.setText(obj.getDescription());
+    description.setText("aaaaaaaaaaaaaaaaaaaaaaaaaaa");
   }
 
   @Override

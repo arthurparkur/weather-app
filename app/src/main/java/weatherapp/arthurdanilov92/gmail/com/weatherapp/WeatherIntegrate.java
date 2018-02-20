@@ -88,6 +88,14 @@ public class WeatherIntegrate {
     return weekInfo.get(day - 1).getTemperatureElement().getDay();
   }
 
+  public String getDate(Integer day) {
+    return weekInfo.get(day - 1).getDt();
+  }
+
+  public void setDate(Integer day, String date) {
+    weekInfo.get(day - 1).setDt(date);
+  }
+
   public String getIcon(Integer day) {
     return weekInfo.get(day - 1).getWeatherElements().get(0).getIcon();
   }

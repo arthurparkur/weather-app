@@ -11,7 +11,7 @@ public class WeatherWeekItem {
   @SerializedName("deg")
   Integer              deg;
   @SerializedName("dt")
-  Float                dt;
+  Long                 dt;
   @SerializedName("humidity")
   Integer              humidity;
   @SerializedName("pressure")
@@ -22,6 +22,7 @@ public class WeatherWeekItem {
   Float                speed;
   @SerializedName("weather")
   List<WeatherElement> weatherElements;
+
   @SerializedName("temp")
   TemperatureElement   temperatureElement;
 
@@ -45,5 +46,13 @@ public class WeatherWeekItem {
 
   public void setTemperatureElement(TemperatureElement temperatureElement) {
     this.temperatureElement = temperatureElement;
+  }
+
+  public String getDt() {
+    return dt.toString();
+  }
+
+  public void setDt(String dt) {
+    this.dt = Long.parseLong(dt);
   }
 }

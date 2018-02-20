@@ -58,19 +58,17 @@ public class NavDrawerListener implements NavigationView.OnNavigationItemSelecte
   }
 
   public void refreshFragments() {
-    FragmentManager fm = activity.getSupportFragmentManager();
-    if (fm.findFragmentByTag(curFragmentTag) != null) {
+    FragmentManager fm          = activity.getSupportFragmentManager();
+    Fragment        curFragment = fm.findFragmentByTag(curFragmentTag);
+    if (curFragment != null) {
+      String curFragmentName = curFragment.getClass().getSimpleName();
+      Fragment newFragment = curFragmentName.equals(TodayFragment.class.getSimpleName()) ?
+              new TodayFragment() :
+              new WeekFragment();
       fm.beginTransaction()
-              .replace(R.id.fragment_container, new TodayFragment(), curFragmentTag)
+              .replace(R.id.fragment_container, newFragment, curFragmentTag)
               .commit();
       return;
     }
-    if (fm.findFragmentById(R.id.weather_week) != null) {
-      fm.beginTransaction()
-              .replace(R.id.weather_week, new WeekFragment(), curFragmentTag)
-              .commit();
-      return;
-    }
-
   }
 }
