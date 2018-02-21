@@ -9,7 +9,6 @@ public class WeatherInfo {
   String icon;
 
   public String getDescription() {
-
     return description;
   }
 

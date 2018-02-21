@@ -2,12 +2,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
-	android:background="#123123"
 	android:orientation="vertical">
 
 	<TextView
 		android:id="@+id/city_name"
-		android:layout_width="match_parent"
+		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_gravity="center_horizontal"
 		android:layout_marginBottom="50dp"
@@ -19,98 +18,76 @@
 		android:layout_height="wrap_content"
 		android:layout_gravity="center_horizontal" />
 
-	<LinearLayout
-		android:layout_width="match_parent"
+	<TextView
+		android:id="@+id/today_description"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_gravity="center"
+		android:layout_marginTop="15dp"
+		android:ellipsize="marquee"
+		android:maxLength="22"
+		android:singleLine="true"
+		android:textSize="24sp" />
+
+	<GridLayout
+		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_gravity="center_horizontal"
-		android:orientation="vertical">
+		android:layout_marginTop="15dp"
+		android:columnCount="2"
+		android:orientation="horizontal">
 
-		<LinearLayout
-			android:layout_width="match_parent"
+		<TextView
+			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:layout_marginTop="15dp"
-			android:orientation="horizontal">
+			android:paddingBottom="10dp"
+			android:paddingTop="10dp"
+			android:text="@string/temperature_text"
+			android:textSize="18sp" />
 
-			<TextView
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:text="@string/temperature_text"
-				android:textSize="18sp" />
-
-			<TextView
-				android:id="@+id/today_temperature"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_gravity="center"
-				android:layout_marginLeft="15dp"
-				android:textSize="18sp" />
-		</LinearLayout>
-
-		<LinearLayout
-			android:layout_width="match_parent"
+		<TextView
+			android:id="@+id/today_temperature"
+			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:layout_marginTop="15dp"
-			android:orientation="horizontal">
+			android:layout_marginLeft="15dp"
+			android:paddingBottom="10dp"
+			android:paddingTop="10dp"
+			android:textSize="18sp" />
 
-			<TextView
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:text="@string/pressure_text"
-				android:textSize="18sp" />
-
-			<TextView
-				android:id="@+id/today_pressure"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_gravity="center"
-				android:layout_marginStart="15dp"
-				android:textSize="18sp" />
-		</LinearLayout>
-
-		<LinearLayout
-			android:layout_width="match_parent"
+		<TextView
+			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:layout_marginTop="15dp">
+			android:paddingBottom="10dp"
+			android:paddingTop="10dp"
+			android:text="@string/pressure_text"
+			android:textSize="18sp" />
 
-			<TextView
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:text="@string/humidity_text"
-				android:textSize="18sp" />
-
-			<TextView
-				android:id="@+id/today_humidity"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_gravity="center"
-				android:layout_marginStart="15dp"
-				android:textSize="18sp" />
-
-		</LinearLayout>
-
-		<LinearLayout
-			android:layout_width="match_parent"
+		<TextView
+			android:id="@+id/today_pressure"
+			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:layout_marginTop="15dp"
-			android:orientation="horizontal">
+			android:layout_marginStart="15dp"
+			android:paddingBottom="10dp"
+			android:paddingTop="10dp"
+			android:textSize="18sp" />
 
-			<TextView
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:text="@string/description_text"
-				android:textSize="18sp" />
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:paddingBottom="10dp"
+			android:paddingTop="10dp"
+			android:text="@string/humidity_text"
+			android:textSize="18sp" />
 
-			<TextView
-				android:id="@+id/today_description"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_gravity="center"
-				android:layout_marginStart="15dp"
-				android:text="sdfsdfsdfsdf"
-				android:textSize="18sp" />
-		</LinearLayout>
+		<TextView
+			android:id="@+id/today_humidity"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginStart="15dp"
+			android:paddingBottom="10dp"
+			android:paddingTop="10dp"
+			android:textSize="18sp" />
 
-
-	</LinearLayout>
+	</GridLayout>
 
 </LinearLayout>

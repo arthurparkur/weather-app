@@ -1,8 +1,5 @@
 package weatherapp.arthurdanilov92.gmail.com.weatherapp.fragments;
 
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -14,8 +11,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import weatherapp.arthurdanilov92.gmail.com.weatherapp.R;
-import weatherapp.arthurdanilov92.gmail.com.weatherapp.WeatherIntegrate;
+import weatherapp.arthurdanilov92.gmail.com.weatherapp.Utils;
 import weatherapp.arthurdanilov92.gmail.com.weatherapp.WeatherStorage;
+import weatherapp.arthurdanilov92.gmail.com.weatherapp.models.WeatherIntegrate;
 
 public class TodayFragment extends ContentFragment {
 
@@ -49,11 +47,11 @@ public class TodayFragment extends ContentFragment {
     TextView  description = v.findViewById(R.id.today_description);
 
     cityName.setText(obj.getName());
-    icon.setImageDrawable(getIcon(obj.getTodayIcon()));
+    icon.setImageDrawable(Utils.getIcon(obj.getTodayIcon(), getActivity()));
     temperature.setText(obj.getTemperature().toString());
     pressure.setText(obj.getPressure().toString());
     humidity.setText(obj.getHumidity().toString());
-    description.setText("aaaaaaaaaaaaaaaaaaaaaaaaaaa");
+    description.setText(obj.getDescription());
   }
 
   @Override
@@ -67,41 +65,4 @@ public class TodayFragment extends ContentFragment {
     chooseCityTitle.setTextSize(30);
     root.addView(chooseCityTitle);
   }
-
-  public Drawable getIcon(String icon) {
-    switch (icon) {
-      case "01d":
-        return getResources().getDrawable(R.drawable.ic_01d);
-      case "01n":
-        return getResources().getDrawable(R.drawable.ic_01n);
-      case "02d":
-        return getResources().getDrawable(R.drawable.ic_02d);
-      case "02n":
-        return getResources().getDrawable(R.drawable.ic_02n);
-      case "03d":
-      case "03n":
-      case "04n":
-      case "04d":
-        return getResources().getDrawable(R.drawable.ic_03d);
-      case "09d":
-      case "09n":
-        return getResources().getDrawable(R.drawable.ic_09d);
-      case "10d":
-        return getResources().getDrawable(R.drawable.ic_10d);
-      case "10n":
-        return getResources().getDrawable(R.drawable.ic_10n);
-      case "11d":
-      case "11n":
-        return getResources().getDrawable(R.drawable.ic_11d);
-      case "13d":
-      case "13n":
-        return getResources().getDrawable(R.drawable.ic_13d);
-      case "50d":
-      case "50n":
-        return getResources().getDrawable(R.drawable.ic_50d);
-      default:
-        return new ColorDrawable(Color.TRANSPARENT);
-    }
-  }
-
 }

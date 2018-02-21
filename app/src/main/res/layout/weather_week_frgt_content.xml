@@ -9,7 +9,7 @@
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_gravity="center_horizontal"
-		android:layout_marginBottom="50dp"
+		android:layout_marginBottom="30dp"
 		android:textSize="30sp" />
 
 	<GridLayout
@@ -25,7 +25,8 @@
 			android:layout_height="wrap_content"
 			android:layout_gravity="center_vertical"
 			android:paddingRight="5dp"
-			android:text="day" />
+			android:text="day"
+			android:textSize="18sp" />
 
 		<TextView
 			android:id="@+id/day1_temp"
@@ -34,7 +35,8 @@
 			android:layout_gravity="center_vertical"
 			android:paddingLeft="5dp"
 			android:paddingRight="5dp"
-			android:text="temp" />
+			android:text="temp"
+			android:textSize="18sp" />
 
 		<ImageView
 			android:id="@+id/day1_icon"
@@ -49,7 +51,8 @@
 			android:layout_height="wrap_content"
 			android:layout_gravity="center_vertical"
 			android:paddingRight="5dp"
-			android:text="day" />
+			android:text="day"
+			android:textSize="18sp" />
 
 		<TextView
 			android:id="@+id/day2_temp"
@@ -58,7 +61,8 @@
 			android:layout_gravity="center_vertical"
 			android:paddingLeft="5dp"
 			android:paddingRight="5dp"
-			android:text="temp" />
+			android:text="temp"
+			android:textSize="18sp" />
 
 		<ImageView
 			android:id="@+id/day2_icon"
@@ -73,7 +77,8 @@
 			android:layout_height="match_parent"
 			android:layout_gravity="center_vertical"
 			android:paddingRight="5dp"
-			android:text="day" />
+			android:text="day"
+			android:textSize="18sp" />
 
 		<TextView
 			android:id="@+id/day3_temp"
@@ -82,7 +87,8 @@
 			android:layout_gravity="center_vertical"
 			android:paddingLeft="5dp"
 			android:paddingRight="5dp"
-			android:text="temp" />
+			android:text="temp"
+			android:textSize="18sp" />
 
 		<ImageView
 			android:id="@+id/day3_icon"
@@ -97,7 +103,8 @@
 			android:layout_height="match_parent"
 			android:layout_gravity="center_vertical"
 			android:paddingRight="5dp"
-			android:text="day" />
+			android:text="day"
+			android:textSize="18sp" />
 
 		<TextView
 			android:id="@+id/day4_temp"
@@ -106,7 +113,8 @@
 			android:layout_gravity="center_vertical"
 			android:paddingLeft="5dp"
 			android:paddingRight="5dp"
-			android:text="temp" />
+			android:text="temp"
+			android:textSize="18sp" />
 
 		<ImageView
 			android:id="@+id/day4_icon"
@@ -121,7 +129,8 @@
 			android:layout_height="match_parent"
 			android:layout_gravity="center_vertical"
 			android:paddingRight="5dp"
-			android:text="day" />
+			android:text="day"
+			android:textSize="18sp" />
 
 		<TextView
 			android:id="@+id/day5_temp"
@@ -130,7 +139,8 @@
 			android:layout_gravity="center_vertical"
 			android:paddingLeft="5dp"
 			android:paddingRight="5dp"
-			android:text="temp" />
+			android:text="temp"
+			android:textSize="18sp" />
 
 		<ImageView
 			android:id="@+id/day5_icon"
@@ -145,7 +155,8 @@
 			android:layout_height="match_parent"
 			android:layout_gravity="center_vertical"
 			android:paddingRight="5dp"
-			android:text="day" />
+			android:text="day"
+			android:textSize="18sp" />
 
 		<TextView
 			android:id="@+id/day6_temp"
@@ -154,7 +165,8 @@
 			android:layout_gravity="center_vertical"
 			android:paddingLeft="5dp"
 			android:paddingRight="5dp"
-			android:text="temp" />
+			android:text="temp"
+			android:textSize="18sp" />
 
 		<ImageView
 			android:id="@+id/day6_icon"
@@ -169,7 +181,8 @@
 			android:layout_height="match_parent"
 			android:layout_gravity="center_vertical"
 			android:paddingRight="5dp"
-			android:text="day" />
+			android:text="day"
+			android:textSize="18sp" />
 
 		<TextView
 			android:id="@+id/day7_temp"
@@ -178,7 +191,8 @@
 			android:layout_gravity="center_vertical"
 			android:paddingLeft="5dp"
 			android:paddingRight="5dp"
-			android:text="temp" />
+			android:text="temp"
+			android:textSize="18sp" />
 
 		<ImageView
 			android:id="@+id/day7_icon"

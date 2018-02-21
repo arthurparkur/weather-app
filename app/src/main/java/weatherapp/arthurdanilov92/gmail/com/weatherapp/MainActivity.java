@@ -28,6 +28,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import weatherapp.arthurdanilov92.gmail.com.weatherapp.db.DataBaseService;
+import weatherapp.arthurdanilov92.gmail.com.weatherapp.models.WeatherIntegrate;
 import weatherapp.arthurdanilov92.gmail.com.weatherapp.models.WeatherModel;
 import weatherapp.arthurdanilov92.gmail.com.weatherapp.models.WeatherWeekModel;
 
@@ -67,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
 
     String cityName = loadCityNameFromSharedPreferences();
     if (!TextUtils.isEmpty(cityName)) {
-      newGetWeahterData(cityName);
+      getWeahterData(cityName);
     }
   }
 
@@ -106,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
     builder.setView(input);
     builder.setPositiveButton("Search", (dialog, which) -> {
       String cityName = input.getText().toString();
-      if (!TextUtils.isEmpty(cityName)) newGetWeahterData(cityName);
+      if (!TextUtils.isEmpty(cityName)) getWeahterData(cityName);
       else Toast.makeText(getApplicationContext(),
                           getString(R.string.empty_city_name),
                           Toast.LENGTH_LONG).show();
@@ -126,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
     return sp.getString(getString(R.string.sp_city_key), "");
   }
 
-  public void newGetWeahterData(final String cityName) {
+  public void getWeahterData(final String cityName) {
     WeatherIntegrate weatherObj = dataBaseService.getWeatherData(cityName);
     if (!weatherObj.isEmpty() &&
             (weatherObj.getUpdatedDate() + OLD_DATE_LIMIT < ((new Date()).getTime()))) {
@@ -159,7 +160,7 @@ public class MainActivity extends AppCompatActivity {
   public void loadWeatherData(final String cityName) {
     CompletableFuture<WeatherModel> todaty = CompletableFuture.supplyAsync(() -> {
       try {
-        return newLoadToday(cityName);
+        return loadTodayWeather(cityName);
       } catch (IOException e) {
         e.printStackTrace();
         return new WeatherModel();
@@ -167,7 +168,7 @@ public class MainActivity extends AppCompatActivity {
     });
     CompletableFuture<WeatherWeekModel> week = CompletableFuture.supplyAsync(() -> {
       try {
-        return newLoadWeek(cityName);
+        return loadWeekWeather(cityName);
       } catch (IOException e) {
         e.printStackTrace();
         return new WeatherWeekModel();
@@ -188,15 +189,15 @@ public class MainActivity extends AppCompatActivity {
     }
   }
 
-  public WeatherModel newLoadToday(final String cityName) throws IOException {
+  public WeatherModel loadTodayWeather(final String cityName) throws IOException {
     return App.getWeatherApi()
-            .getWeatherByCityName(cityName, App.appKey)
+            .getWeatherByCityName(cityName, App.UNITS, App.APP_KEY)
             .execute().body();
   }
 
-  public WeatherWeekModel newLoadWeek(final String cityName) throws IOException {
+  public WeatherWeekModel loadWeekWeather(final String cityName) throws IOException {
     return App.getWeatherApi()
-            .getWeatherWeekByCityName(cityName, App.appKey)
+            .getWeatherWeekByCityName(cityName, App.UNITS, App.CNT, App.APP_KEY)
             .execute().body();
   }
 }

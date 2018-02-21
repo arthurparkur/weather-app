@@ -19,5 +19,4 @@
 	<string name="temperature_text">temperature:</string>
 	<string name="pressure_text">pressure:</string>
 	<string name="humidity_text">humidity:</string>
-	<string name="description_text">description:</string>
 </resources>

@@ -8,7 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import java.util.Date;
 
-import weatherapp.arthurdanilov92.gmail.com.weatherapp.WeatherIntegrate;
+import weatherapp.arthurdanilov92.gmail.com.weatherapp.models.WeatherIntegrate;
 
 public class DataBaseService {
 
@@ -85,8 +85,8 @@ public class DataBaseService {
         weatherObj.setName(cr.getString(cr.getColumnIndexOrThrow(DataBaseHelper.COL_CITY_NAME)));
         weatherObj.setHumidity(Integer.parseInt(cr.getString(cr.getColumnIndexOrThrow(DataBaseHelper.COL_HUMIDITY))));
         weatherObj.setPressure(Integer.parseInt(cr.getString(cr.getColumnIndexOrThrow(DataBaseHelper.COL_PRESSURE))));
-        weatherObj.setTemp(Double.parseDouble(cr.getString(cr.getColumnIndexOrThrow(DataBaseHelper.COL_PRESSURE))));
-        weatherObj.setDescription(cr.getString(cr.getColumnIndexOrThrow(DataBaseHelper.COL_PRESSURE)));
+        weatherObj.setTemp(Double.parseDouble(cr.getString(cr.getColumnIndexOrThrow(DataBaseHelper.COL_TEMPERATURE))));
+        weatherObj.setDescription(cr.getString(cr.getColumnIndexOrThrow(DataBaseHelper.COL_DESCRIPTION)));
         weatherObj.setTodayIcon(cr.getString(cr.getColumnIndexOrThrow(DataBaseHelper.COL_ICON)));
 
         weatherObj.setTemp(Float.parseFloat(cr.getString(cr.getColumnIndexOrThrow(DataBaseHelper.COL_DAY1_TEMP))));
@@ -128,6 +128,4 @@ public class DataBaseService {
   public void deleteAll() {
     database.delete(DataBaseHelper.WEATHER_INFO_TABLE_NAME, null, null);
   }
-
-
 }

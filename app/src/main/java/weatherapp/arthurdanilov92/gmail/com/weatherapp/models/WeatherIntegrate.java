@@ -1,15 +1,9 @@
-package weatherapp.arthurdanilov92.gmail.com.weatherapp;
+package weatherapp.arthurdanilov92.gmail.com.weatherapp.models;
 
 import android.text.TextUtils;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import weatherapp.arthurdanilov92.gmail.com.weatherapp.models.MainInfo;
-import weatherapp.arthurdanilov92.gmail.com.weatherapp.models.WeatherInfo;
-import weatherapp.arthurdanilov92.gmail.com.weatherapp.models.WeatherModel;
-import weatherapp.arthurdanilov92.gmail.com.weatherapp.models.WeatherWeekItem;
-import weatherapp.arthurdanilov92.gmail.com.weatherapp.models.WeatherWeekModel;
 
 public class WeatherIntegrate {
 

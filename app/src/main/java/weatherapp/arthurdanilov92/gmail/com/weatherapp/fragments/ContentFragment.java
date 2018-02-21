@@ -4,7 +4,7 @@ import android.support.v4.app.Fragment;
 import android.view.View;
 import android.view.ViewGroup;
 
-import weatherapp.arthurdanilov92.gmail.com.weatherapp.WeatherIntegrate;
+import weatherapp.arthurdanilov92.gmail.com.weatherapp.models.WeatherIntegrate;
 
 abstract class ContentFragment extends Fragment {
 

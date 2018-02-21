@@ -6,7 +6,9 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class App extends Application {
-  public static final String appKey = "10792cf43e4992f76dfdb635ad0be4eb";
+  public static final String  APP_KEY = "10792cf43e4992f76dfdb635ad0be4eb";
+  public static final String  UNITS   = "metric";
+  public static final Integer CNT     = 7;
   private static IWeatherApi weatherApi;
   private        Retrofit    retrofit;
 
