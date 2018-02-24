@@ -1,5 +1,29 @@
 <resources>
 
+
+	<!-- basic classes -->
+	<style name="today_grid_item">
+		<item name="android:paddingBottom">10dp</item>
+		<item name="android:paddingTop">10dp</item>
+		<item name="android:textSize">18sp</item>
+	</style>
+
+	<style name="week_grid_col1_item">
+		<item name="android:paddingRight">5dp</item>
+		<item name="android:textSize">18sp</item>
+	</style>
+
+	<style name="week_grid_col2_item">
+		<item name="android:paddingRight">5dp</item>
+		<item name="android:paddingLeft">5dp</item>
+		<item name="android:textSize">18sp</item>
+	</style>
+
+	<style name="week_grid_col3_item">
+		<item name="android:padding">5dp</item>
+	</style>
+
+
 	<!-- Base application theme. -->
 	<style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
 		<!-- Customize your theme here. -->

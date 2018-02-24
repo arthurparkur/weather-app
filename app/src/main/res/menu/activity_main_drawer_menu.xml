@@ -17,10 +17,6 @@
 	<item android:title="@string/communicate_text">
 		<menu>
 			<item
-				android:id="@+id/contacts"
-				android:icon="@drawable/ic_contact_phone_black_24px"
-				android:title="@string/contacts_text" />
-			<item
 				android:id="@+id/help"
 				android:icon="@drawable/ic_help_black_24px"
 				android:title="@string/help_text" />

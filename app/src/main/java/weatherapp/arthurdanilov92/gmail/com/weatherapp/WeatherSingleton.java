@@ -2,7 +2,7 @@ package weatherapp.arthurdanilov92.gmail.com.weatherapp;
 
 import weatherapp.arthurdanilov92.gmail.com.weatherapp.models.WeatherIntegrate;
 
-public class WeatherStorage {
+public class WeatherSingleton {
 
   private static WeatherIntegrate weatherIntegrateSingleton = null;
 
@@ -10,8 +10,8 @@ public class WeatherStorage {
     return weatherIntegrateSingleton;
   }
 
-  public static void setWeatherIntegrateSingleton(WeatherIntegrate weatherIntegrateSingleton) {
-    WeatherStorage.weatherIntegrateSingleton = weatherIntegrateSingleton;
+  static void setWeatherIntegrateSingleton(WeatherIntegrate weatherIntegrateSingleton) {
+    WeatherSingleton.weatherIntegrateSingleton = weatherIntegrateSingleton;
   }
 
 }

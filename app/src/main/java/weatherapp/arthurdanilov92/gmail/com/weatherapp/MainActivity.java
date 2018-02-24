@@ -2,7 +2,6 @@ package weatherapp.arthurdanilov92.gmail.com.weatherapp;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -13,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -34,10 +34,11 @@ import weatherapp.arthurdanilov92.gmail.com.weatherapp.models.WeatherWeekModel;
 
 public class MainActivity extends AppCompatActivity {
 
-  private final String PREF_FILE      = "WeatherPref";
-  private final int    OLD_DATE_LIMIT = 10800000;
-  DataBaseService   dataBaseService;
-  NavDrawerListener navDrawerListener;
+  private final int OLD_DATE_LIMIT = 10800000;
+  DataBaseService          dataBaseService;
+  DataLoader               dataLoader;
+  NavDrawerListener        navDrawerListener;
+  SharedPreferencesService sharedPrefService;
 
   @BindView(R.id.toolbar)
   Toolbar        toolbar;
@@ -63,10 +64,15 @@ public class MainActivity extends AppCompatActivity {
     navDrawerListener.initFirstFragment();
     navigationView.setNavigationItemSelectedListener(navDrawerListener);
 
-    dataBaseService = new DataBaseService(getApplicationContext());
+    dataLoader = DataLoader.getDataLoader();
+
+    Context appContext = getApplicationContext();
+    sharedPrefService = new SharedPreferencesService(appContext);
+
+    dataBaseService = new DataBaseService(appContext);
     dataBaseService.open();
 
-    String cityName = loadCityNameFromSharedPreferences();
+    String cityName = sharedPrefService.loadCityNameFromSharedPreferences();
     if (!TextUtils.isEmpty(cityName)) {
       getWeahterData(cityName);
     }
@@ -115,52 +121,19 @@ public class MainActivity extends AppCompatActivity {
     builder.show();
   }
 
-  private void saveCityNameToSharedPreferences(String city) {
-    SharedPreferences        sp       = getSharedPreferences(PREF_FILE, Context.MODE_PRIVATE);
-    SharedPreferences.Editor spEditor = sp.edit();
-    spEditor.putString(getString(R.string.sp_city_key), city);
-    spEditor.apply();
-  }
-
-  private String loadCityNameFromSharedPreferences() {
-    SharedPreferences sp = getSharedPreferences(PREF_FILE, Context.MODE_PRIVATE);
-    return sp.getString(getString(R.string.sp_city_key), "");
-  }
-
-  public void getWeahterData(final String cityName) {
+  private void getWeahterData(final String cityName) {
     WeatherIntegrate weatherObj = dataBaseService.getWeatherData(cityName);
     if (!weatherObj.isEmpty() &&
             (weatherObj.getUpdatedDate() + OLD_DATE_LIMIT < ((new Date()).getTime()))) {
-      WeatherStorage.setWeatherIntegrateSingleton(weatherObj);
+      WeatherSingleton.setWeatherIntegrateSingleton(weatherObj);
       navDrawerListener.refreshFragments();
     } else loadWeatherData(cityName);
   }
 
-  @OnClick(R.id.floating_action_btn)
-  public void onClick(View v) {
-    shareWeather();
-  }
-
-  public void shareWeather() {
-    if (WeatherStorage.getWeatherIntegrateSingleton() != null) {
-      Intent intent = new Intent(Intent.ACTION_SEND);
-      intent.setType("text/plain");
-      intent.putExtra(Intent.EXTRA_TEXT,
-                      WeatherStorage
-                              .getWeatherIntegrateSingleton()
-                              .getAndFormatWeatherInfo());
-      String title   = "Share";
-      Intent chooser = Intent.createChooser(intent, title);
-      startActivity(chooser);
-    } else Toast.makeText(getApplicationContext(),
-                          getString(R.string.empty_city),
-                          Toast.LENGTH_LONG).show();
-  }
-
-  public void loadWeatherData(final String cityName) {
+  private void loadWeatherData(final String cityName) {
     CompletableFuture<WeatherModel> todaty = CompletableFuture.supplyAsync(() -> {
       try {
-        return loadTodayWeather(cityName);
+        return dataLoader.loadTodayWeather(cityName);
       } catch (IOException e) {
         e.printStackTrace();
         return new WeatherModel();
@@ -168,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
     });
     CompletableFuture<WeatherWeekModel> week = CompletableFuture.supplyAsync(() -> {
       try {
-        return loadWeekWeather(cityName);
+        return dataLoader.loadWeekWeather(cityName);
       } catch (IOException e) {
         e.printStackTrace();
         return new WeatherWeekModel();
@@ -179,25 +152,35 @@ public class MainActivity extends AppCompatActivity {
     try {
       WeatherIntegrate weather = res.get();
       if (!weather.isEmpty()) {
-        WeatherStorage.setWeatherIntegrateSingleton(weather);
+        WeatherSingleton.setWeatherIntegrateSingleton(weather);
         dataBaseService.addOrUpdateWeather(weather);
         navDrawerListener.refreshFragments();
-        saveCityNameToSharedPreferences(cityName);
-      }
+        sharedPrefService.saveCityNameToSharedPreferences(cityName);
+      } else Toast.makeText(getApplicationContext(),
+                            getString(R.string.empty_city_name),
+                            Toast.LENGTH_LONG).show();
     } catch (InterruptedException | ExecutionException e) {
-      e.printStackTrace();
+      Toast.makeText(getApplicationContext(),
+                     getString(R.string.empty_city_name),
+                     Toast.LENGTH_LONG).show();
+      Log.e(getString(R.string.empty_city_name), e.getMessage());
     }
   }
 
-  public WeatherModel loadTodayWeather(final String cityName) throws IOException {
-    return App.getWeatherApi()
-            .getWeatherByCityName(cityName, App.UNITS, App.APP_KEY)
-            .execute().body();
-  }
-
-  public WeatherWeekModel loadWeekWeather(final String cityName) throws IOException {
-    return App.getWeatherApi()
-            .getWeatherWeekByCityName(cityName, App.UNITS, App.CNT, App.APP_KEY)
-            .execute().body();
+  @OnClick(R.id.floating_action_btn)
+  public void shareWeather(View v) {
+    if (WeatherSingleton.getWeatherIntegrateSingleton() != null) {
+      Intent intent = new Intent(Intent.ACTION_SEND);
+      intent.setType("text/plain");
+      intent.putExtra(Intent.EXTRA_TEXT,
+                      WeatherSingleton
+                              .getWeatherIntegrateSingleton()
+                              .getAndFormatWeatherInfo());
+      String title   = "Share";
+      Intent chooser = Intent.createChooser(intent, title);
+      startActivity(chooser);
+    } else Toast.makeText(getApplicationContext(),
+                          getString(R.string.empty_city),
+                          Toast.LENGTH_LONG).show();
   }
 }

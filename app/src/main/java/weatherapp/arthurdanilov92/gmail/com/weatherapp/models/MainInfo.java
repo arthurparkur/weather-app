@@ -1,14 +1,9 @@
 package weatherapp.arthurdanilov92.gmail.com.weatherapp.models;
 
-import com.google.gson.annotations.SerializedName;
-
 public class MainInfo {
 
-  @SerializedName("humidity")
   Integer humidity;
-  @SerializedName("pressure")
   Integer pressure;
-  @SerializedName("temp")
   Double  temp;
 
   public Integer getHumidity() {

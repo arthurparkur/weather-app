@@ -117,10 +117,6 @@ public class WeatherIntegrate {
     weekInfo.get(day - 1).getWeatherElements().get(0).setIcon(icon);
   }
 
-  public List<WeatherWeekItem> getWeekInfo() {
-    return weekInfo;
-  }
-
   public boolean isEmpty() {
     return (TextUtils.isEmpty(getName())) || (weekInfo.size() == 0);
   }

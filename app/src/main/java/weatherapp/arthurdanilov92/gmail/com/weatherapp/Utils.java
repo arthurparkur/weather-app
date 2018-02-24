@@ -12,7 +12,7 @@ import java.util.Locale;
 
 public class Utils {
 
-  final static String CELSIUS = "C \u00b0";
+  private final static String CELSIUS = "C \u00b0";
 
   public static String getDay(Integer dayCount) {
     Calendar c = Calendar.getInstance();

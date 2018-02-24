@@ -8,15 +8,23 @@
 	<string name="today_text">Today</string>
 	<string name="for_week_text">For week</string>
 	<string name="communicate_text">Communicate</string>
-	<string name="contacts_text">Contacts</string>
 	<string name="help_text">Help</string>
 	<string name="choose_city_text">Choose city</string>
 	<string name="enter_city_name_dialog">Enter city name</string>
 	<string name="place_not_found">Place not found</string>
 	<string name="empty_city_name">City name is empty</string>
+	<string name="load_err">An error occurred while dataloading.</string>
 	<string name="empty_city">City not selected</string>
 	<string name="sp_city_key">sp_city_key</string>
 	<string name="temperature_text">temperature:</string>
 	<string name="pressure_text">pressure:</string>
 	<string name="humidity_text">humidity:</string>
+	<string name="contacts_description1">If you have a question, you can send us a letter:</string>
+	<string name="contacts_description2">or you can call us:</string>
+	<string name="send_mail_btn">click to send mail</string>
+	<string name="make_call_btn">click to make a call</string>
+	<string name="appMailAddress">flava1@rambler.ru</string>
+	<string name="send_mail_text">Send mail</string>
+	<string name="err_send_mail">Error sending message</string>
+	<string name="err_call">Error while make a call</string>
 </resources>

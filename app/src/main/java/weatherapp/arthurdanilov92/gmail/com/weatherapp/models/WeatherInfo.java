@@ -1,11 +1,8 @@
 package weatherapp.arthurdanilov92.gmail.com.weatherapp.models;
 
-import com.google.gson.annotations.SerializedName;
-
 public class WeatherInfo {
-  @SerializedName("description")
+
   String description;
-  @SerializedName("icon")
   String icon;
 
   public String getDescription() {

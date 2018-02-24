@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import weatherapp.arthurdanilov92.gmail.com.weatherapp.R;
 import weatherapp.arthurdanilov92.gmail.com.weatherapp.Utils;
-import weatherapp.arthurdanilov92.gmail.com.weatherapp.WeatherStorage;
+import weatherapp.arthurdanilov92.gmail.com.weatherapp.WeatherSingleton;
 import weatherapp.arthurdanilov92.gmail.com.weatherapp.models.WeatherIntegrate;
 
 public class TodayFragment extends ContentFragment {
@@ -23,8 +23,8 @@ public class TodayFragment extends ContentFragment {
                            Bundle savedInstanceState) {
     View view = inflater.inflate(R.layout.weather_today_frgt, container, false);
 
-    LinearLayout root = view.findViewById(R.id.today_root_fragment);
-    WeatherIntegrate weatherObj = WeatherStorage.getWeatherIntegrateSingleton();
+    LinearLayout     root       = view.findViewById(R.id.today_root_fragment);
+    WeatherIntegrate weatherObj = WeatherSingleton.getWeatherIntegrateSingleton();
 
     if (weatherObj != null) {
       View content = inflater.inflate(R.layout.weather_today_frgt_content, null);

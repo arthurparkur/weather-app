@@ -9,7 +9,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.ViewGroup;
 
-import weatherapp.arthurdanilov92.gmail.com.weatherapp.fragments.ContactsFragment;
 import weatherapp.arthurdanilov92.gmail.com.weatherapp.fragments.HelpFragment;
 import weatherapp.arthurdanilov92.gmail.com.weatherapp.fragments.TodayFragment;
 import weatherapp.arthurdanilov92.gmail.com.weatherapp.fragments.WeekFragment;
@@ -17,9 +16,9 @@ import weatherapp.arthurdanilov92.gmail.com.weatherapp.fragments.WeekFragment;
 public class NavDrawerListener implements NavigationView.OnNavigationItemSelectedListener {
 
   private final String curFragmentTag = "currentFragment";
-  AppCompatActivity activity;
+  private AppCompatActivity activity;
 
-  public NavDrawerListener(AppCompatActivity activity) {
+  NavDrawerListener(AppCompatActivity activity) {
     this.activity = activity;
   }
 
@@ -32,8 +31,6 @@ public class NavDrawerListener implements NavigationView.OnNavigationItemSelecte
       fragment = new TodayFragment();
     } else if (id == R.id.weather_week) {
       fragment = new WeekFragment();
-    } else if (id == R.id.contacts) {
-      fragment = new ContactsFragment();
     } else if (id == R.id.help) {
       fragment = new HelpFragment();
     } else fragment = new TodayFragment();
@@ -50,14 +47,14 @@ public class NavDrawerListener implements NavigationView.OnNavigationItemSelecte
     return true;
   }
 
-  public void initFirstFragment() {
+  void initFirstFragment() {
     activity.getSupportFragmentManager()
             .beginTransaction()
             .add(R.id.fragment_container, new TodayFragment(), curFragmentTag)
             .commit();
   }
 
-  public void refreshFragments() {
+  void refreshFragments() {
     FragmentManager fm          = activity.getSupportFragmentManager();
     Fragment        curFragment = fm.findFragmentByTag(curFragmentTag);
     if (curFragment != null) {

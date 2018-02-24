@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import weatherapp.arthurdanilov92.gmail.com.weatherapp.R;
 import weatherapp.arthurdanilov92.gmail.com.weatherapp.Utils;
-import weatherapp.arthurdanilov92.gmail.com.weatherapp.WeatherStorage;
+import weatherapp.arthurdanilov92.gmail.com.weatherapp.WeatherSingleton;
 import weatherapp.arthurdanilov92.gmail.com.weatherapp.models.WeatherIntegrate;
 
 public class WeekFragment extends ContentFragment {
@@ -24,7 +24,7 @@ public class WeekFragment extends ContentFragment {
     View view = inflater.inflate(R.layout.weather_week_frgt, container, false);
 
     LinearLayout     root       = view.findViewById(R.id.weather_root_fragment);
-    WeatherIntegrate weatherObj = WeatherStorage.getWeatherIntegrateSingleton();
+    WeatherIntegrate weatherObj = WeatherSingleton.getWeatherIntegrateSingleton();
 
     if (weatherObj != null) {
       View content = inflater.inflate(R.layout.weather_week_frgt_content, null);

@@ -21,184 +21,163 @@
 
 		<TextView
 			android:id="@+id/day1_name"
+			style="@style/week_grid_col1_item"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_gravity="center_vertical"
-			android:paddingRight="5dp"
-			android:text="day"
-			android:textSize="18sp" />
+			android:text="day" />
 
 		<TextView
 			android:id="@+id/day1_temp"
+			style="@style/week_grid_col2_item"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_gravity="center_vertical"
-			android:paddingLeft="5dp"
-			android:paddingRight="5dp"
-			android:text="temp"
-			android:textSize="18sp" />
+			android:text="temp" />
 
 		<ImageView
 			android:id="@+id/day1_icon"
+			style="@style/week_grid_col3_item"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:padding="5dp"
 			android:src="@drawable/ic_01d" />
 
 		<TextView
 			android:id="@+id/day2_name"
+			style="@style/week_grid_col1_item"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_gravity="center_vertical"
-			android:paddingRight="5dp"
-			android:text="day"
-			android:textSize="18sp" />
+			android:text="day" />
 
 		<TextView
 			android:id="@+id/day2_temp"
+			style="@style/week_grid_col2_item"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_gravity="center_vertical"
-			android:paddingLeft="5dp"
-			android:paddingRight="5dp"
-			android:text="temp"
-			android:textSize="18sp" />
+			android:text="temp" />
 
 		<ImageView
 			android:id="@+id/day2_icon"
+			style="@style/week_grid_col3_item"
 			android:layout_width="match_parent"
 			android:layout_height="match_parent"
-			android:padding="5dp"
 			android:src="@drawable/ic_01d" />
 
 		<TextView
 			android:id="@+id/day3_name"
+			style="@style/week_grid_col1_item"
 			android:layout_width="match_parent"
 			android:layout_height="match_parent"
 			android:layout_gravity="center_vertical"
-			android:paddingRight="5dp"
-			android:text="day"
-			android:textSize="18sp" />
+			android:text="day" />
 
 		<TextView
 			android:id="@+id/day3_temp"
+			style="@style/week_grid_col2_item"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_gravity="center_vertical"
-			android:paddingLeft="5dp"
-			android:paddingRight="5dp"
-			android:text="temp"
-			android:textSize="18sp" />
+			android:text="temp" />
 
 		<ImageView
 			android:id="@+id/day3_icon"
+			style="@style/week_grid_col3_item"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:padding="5dp"
 			android:src="@drawable/ic_01d" />
 
 		<TextView
 			android:id="@+id/day4_name"
+			style="@style/week_grid_col1_item"
 			android:layout_width="match_parent"
 			android:layout_height="match_parent"
 			android:layout_gravity="center_vertical"
-			android:paddingRight="5dp"
-			android:text="day"
-			android:textSize="18sp" />
+			android:text="day" />
 
 		<TextView
 			android:id="@+id/day4_temp"
+			style="@style/week_grid_col2_item"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_gravity="center_vertical"
-			android:paddingLeft="5dp"
-			android:paddingRight="5dp"
-			android:text="temp"
-			android:textSize="18sp" />
+			android:text="temp" />
 
 		<ImageView
 			android:id="@+id/day4_icon"
+			style="@style/week_grid_col3_item"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:padding="5dp"
 			android:src="@drawable/ic_01d" />
 
 		<TextView
 			android:id="@+id/day5_name"
+			style="@style/week_grid_col1_item"
 			android:layout_width="match_parent"
 			android:layout_height="match_parent"
 			android:layout_gravity="center_vertical"
-			android:paddingRight="5dp"
-			android:text="day"
-			android:textSize="18sp" />
+			android:text="day" />
 
 		<TextView
 			android:id="@+id/day5_temp"
+			style="@style/week_grid_col2_item"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_gravity="center_vertical"
-			android:paddingLeft="5dp"
-			android:paddingRight="5dp"
-			android:text="temp"
-			android:textSize="18sp" />
+			android:text="temp" />
 
 		<ImageView
 			android:id="@+id/day5_icon"
+			style="@style/week_grid_col3_item"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:padding="5dp"
 			android:src="@drawable/ic_01d" />
 
 		<TextView
 			android:id="@+id/day6_name"
+			style="@style/week_grid_col1_item"
 			android:layout_width="match_parent"
 			android:layout_height="match_parent"
 			android:layout_gravity="center_vertical"
-			android:paddingRight="5dp"
-			android:text="day"
-			android:textSize="18sp" />
+			android:text="day" />
 
 		<TextView
 			android:id="@+id/day6_temp"
+			style="@style/week_grid_col2_item"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_gravity="center_vertical"
-			android:paddingLeft="5dp"
-			android:paddingRight="5dp"
-			android:text="temp"
-			android:textSize="18sp" />
+			android:text="temp" />
 
 		<ImageView
 			android:id="@+id/day6_icon"
+			style="@style/week_grid_col3_item"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:padding="5dp"
 			android:src="@drawable/ic_01d" />
 
 		<TextView
 			android:id="@+id/day7_name"
+			style="@style/week_grid_col1_item"
 			android:layout_width="match_parent"
 			android:layout_height="match_parent"
 			android:layout_gravity="center_vertical"
-			android:paddingRight="5dp"
-			android:text="day"
-			android:textSize="18sp" />
+			android:text="day" />
 
 		<TextView
 			android:id="@+id/day7_temp"
+			style="@style/week_grid_col2_item"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_gravity="center_vertical"
-			android:paddingLeft="5dp"
-			android:paddingRight="5dp"
-			android:text="temp"
-			android:textSize="18sp" />
+			android:text="temp" />
 
 		<ImageView
 			android:id="@+id/day7_icon"
+			style="@style/week_grid_col3_item"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:padding="5dp"
 			android:src="@drawable/ic_01d" />
 
 	</GridLayout>

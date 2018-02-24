@@ -38,55 +38,43 @@
 		android:orientation="horizontal">
 
 		<TextView
+			style="@style/today_grid_item"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:paddingBottom="10dp"
-			android:paddingTop="10dp"
-			android:text="@string/temperature_text"
-			android:textSize="18sp" />
+			android:text="@string/temperature_text" />
 
 		<TextView
 			android:id="@+id/today_temperature"
+			style="@style/today_grid_item"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:layout_marginLeft="15dp"
-			android:paddingBottom="10dp"
-			android:paddingTop="10dp"
-			android:textSize="18sp" />
+			android:layout_marginStart="15dp" />
 
 		<TextView
+			style="@style/today_grid_item"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:paddingBottom="10dp"
-			android:paddingTop="10dp"
-			android:text="@string/pressure_text"
-			android:textSize="18sp" />
+			android:text="@string/pressure_text" />
 
 		<TextView
 			android:id="@+id/today_pressure"
+			style="@style/today_grid_item"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:layout_marginStart="15dp"
-			android:paddingBottom="10dp"
-			android:paddingTop="10dp"
-			android:textSize="18sp" />
+			android:layout_marginStart="15dp" />
 
 		<TextView
+			style="@style/today_grid_item"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:paddingBottom="10dp"
-			android:paddingTop="10dp"
-			android:text="@string/humidity_text"
-			android:textSize="18sp" />
+			android:text="@string/humidity_text" />
 
 		<TextView
 			android:id="@+id/today_humidity"
+			style="@style/today_grid_item"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:layout_marginStart="15dp"
-			android:paddingBottom="10dp"
-			android:paddingTop="10dp"
-			android:textSize="18sp" />
+			android:layout_marginStart="15dp" />
 
 	</GridLayout>
 
